@@ -14,7 +14,7 @@ export type Product = {
 //Info: The following data is used for the sidebar navigation and Cmd K bar.
 export const navItems: NavItem[] = [
   {
-    title: 'Dashboard',
+    title: 'Обзор',
     url: '/dashboard/overview',
     icon: 'dashboard',
     isActive: false,
@@ -22,7 +22,15 @@ export const navItems: NavItem[] = [
     items: [] // Empty array as there are no child items for Dashboard
   },
   {
-    title: 'Product',
+    title: 'Календарь',
+    url: '/dashboard/calendar',
+    icon: 'pizza',
+    isActive: false,
+    shortcut: ['d', 'd'],
+    items: [] // Empty array as there are no child items for Dashboard
+  },
+  {
+    title: 'Товары',
     url: '/dashboard/product',
     icon: 'product',
     shortcut: ['p', 'p'],
@@ -30,20 +38,20 @@ export const navItems: NavItem[] = [
     items: [] // No child items
   },
   {
-    title: 'Account',
+    title: 'Аккаунт',
     url: '#', // Placeholder as there is no direct link for the parent
     icon: 'billing',
     isActive: true,
 
     items: [
       {
-        title: 'Profile',
+        title: 'Профиль',
         url: '/dashboard/profile',
         icon: 'userPen',
         shortcut: ['m', 'm']
       },
       {
-        title: 'Login',
+        title: 'Войти',
         shortcut: ['l', 'l'],
         url: '/',
         icon: 'login'
@@ -51,7 +59,7 @@ export const navItems: NavItem[] = [
     ]
   },
   {
-    title: 'Kanban',
+    title: 'Канбан',
     url: '/dashboard/kanban',
     icon: 'kanban',
     shortcut: ['k', 'k'],

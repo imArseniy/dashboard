@@ -1,20 +1,29 @@
+import { CalendarViewType } from '@/types/event';
 import {
   createSearchParamsCache,
-  createSerializer,
+  parseAsArrayOf,
+  parseAsBoolean,
   parseAsInteger,
-  parseAsString
+  parseAsIsoDate,
+  parseAsString,
 } from 'nuqs/server';
 
-export const searchParams = {
+export const searchParamsCache = createSearchParamsCache({
   page: parseAsInteger.withDefault(1),
   perPage: parseAsInteger.withDefault(10),
   name: parseAsString,
   gender: parseAsString,
-  category: parseAsString
-  // advanced filter
-  // filters: getFiltersStateParser().withDefault([]),
-  // joinOperator: parseAsStringEnum(['and', 'or']).withDefault('and')
-};
-
-export const searchParamsCache = createSearchParamsCache(searchParams);
-export const serialize = createSerializer(searchParams);
+  category: parseAsString,
+  date: parseAsIsoDate.withDefault(new Date()),
+  view: parseAsString.withDefault(CalendarViewType.MONTH),
+  title: parseAsString.withDefault(''),
+  categories: parseAsArrayOf(parseAsString).withDefault([]),
+  daysCount: parseAsInteger.withDefault(7),
+  search: parseAsString.withDefault(''),
+  colors: parseAsArrayOf(parseAsString).withDefault([]),
+  locations: parseAsArrayOf(parseAsString).withDefault([]),
+  repeatingTypes: parseAsArrayOf(parseAsString).withDefault([]),
+  isRepeating: parseAsBoolean.withDefault(false),
+  limit: parseAsInteger.withDefault(50),
+  offset: parseAsInteger.withDefault(0),
+});
