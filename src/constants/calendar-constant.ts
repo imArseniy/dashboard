@@ -1,5 +1,5 @@
 import { EventTypes } from '@/db/schema';
-import { enUS, enGB, id, es, fr, de, ja, ko } from 'date-fns/locale';
+import { enUS, enGB, id, es, fr, de, ja, ko, ru } from 'date-fns/locale';
 
 export const EVENT_DEFAULTS = {
   START_TIME: '09:00',
@@ -72,5 +72,6 @@ export const LOCALES = [
   { value: 'de-DE', label: 'Deutsch', locale: de },
   { value: 'ja-JP', label: '日本語', locale: ja },
   { value: 'ko-KR', label: '한국어', locale: ko },
+  { value: 'ru-RU', label: 'Русский', locale: ru },
 ] as const;
 export type LocaleCode = (typeof LOCALES)[number]['value'];

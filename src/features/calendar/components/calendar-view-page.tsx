@@ -132,7 +132,6 @@ export default async function CalendarViewPage({ searchParams }: DemoPageProps) 
         <Heading title={`Календарь`} description='Manage tasks by dnd' />
       </div>
         <main className="flex-1 py-6">
-          <div className="container">
             <div className="bg-card overflow-hidden rounded-xl border shadow-sm">
               <Suspense
                 fallback={
@@ -147,7 +146,6 @@ export default async function CalendarViewPage({ searchParams }: DemoPageProps) 
                 <EventCalendar events={safeEvents} initialDate={initialDateSafe} />
               </Suspense>
             </div>
-          </div>
         </main>
       </div>
     </div>

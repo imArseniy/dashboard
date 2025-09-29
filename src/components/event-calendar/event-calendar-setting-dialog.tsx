@@ -183,7 +183,7 @@ export default function EventCalendarSettingsDialog() {
       <DialogTrigger asChild>
         <Button variant="outline" className="flex items-center gap-2">
           <Settings className="h-4 w-4" />
-          Calendar Settings
+          Настройки
         </Button>
       </DialogTrigger>
 
@@ -214,10 +214,10 @@ export default function EventCalendarSettingsDialog() {
             <DialogHeader className="p-6 pb-4">
               <DialogTitle className="flex items-center gap-2">
                 <Settings className="h-5 w-5" />
-                Calendar Settings
+                Настройки
               </DialogTitle>
               <DialogDescription>
-                Customize your calendar experience and behavior
+                Настройте календарь под себя
               </DialogDescription>
             </DialogHeader>
             <div className="flex-1 overflow-y-auto px-6 pb-6">
@@ -272,10 +272,10 @@ const GeneralSettings = ({
   const localizedDays = getLocalizedDaysOfWeek(localeObj);
   return (
     <div className="space-y-8">
-      <ConfigSection title="Display & Format" icon={Eye}>
+      <ConfigSection title="Вид и формат" icon={Eye}>
         <ConfigRow
-          label="Default view"
-          description="Choose which view opens by default"
+          label="Стандартный вид"
+          description="Выберите вид, который будет открываться по умолчанию"
         >
           <Select value={currentView} onValueChange={handleViewChange}>
             <SelectTrigger className="w-40">
@@ -291,8 +291,8 @@ const GeneralSettings = ({
           </Select>
         </ConfigRow>
         <ConfigRow
-          label="View mode"
-          description="Default display mode for calendar"
+          label="Вид календаря"
+          description="Выберите вид, который открываться по умолчанию"
         >
           <Select
             value={viewMode}
@@ -307,23 +307,6 @@ const GeneralSettings = ({
                   {mode.label}
                 </SelectItem>
               ))}
-            </SelectContent>
-          </Select>
-        </ConfigRow>
-        <ConfigRow
-          label="Time format"
-          description="Choose between 12-hour or 24-hour format"
-        >
-          <Select
-            value={timeFormat}
-            onValueChange={(value: TimeFormatType) => setTimeFormat(value)}
-          >
-            <SelectTrigger className="w-40">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="12">12-hour (AM/PM)</SelectItem>
-              <SelectItem value="24">24-hour</SelectItem>
             </SelectContent>
           </Select>
         </ConfigRow>
@@ -390,10 +373,10 @@ const CalendarSettings = ({
   updateYearViewConfig: (config: Partial<YearViewConfig>) => void;
 }) => (
   <div className="space-y-8">
-    <ConfigSection title="Day View" icon={Clock}>
+    <ConfigSection title="Вид дня" icon={Clock}>
       <ConfigRow
-        label="Current time indicator"
-        description="Show red line at current time"
+        label="Индикатор текущего времени"
+        description="Показать красную линию в текущее время"
       >
         <Switch
           checked={viewSettings.day.showCurrentTimeIndicator}
@@ -403,8 +386,8 @@ const CalendarSettings = ({
         />
       </ConfigRow>
       <ConfigRow
-        label="Hover time indicator"
-        description="Show time when hovering over time slots"
+        label="Время при наведении"
+        description="Показывать время при наведении курсора на временные интервалы"
       >
         <Switch
           checked={viewSettings.day.showHoverTimeIndicator}
@@ -414,8 +397,8 @@ const CalendarSettings = ({
         />
       </ConfigRow>
       <ConfigRow
-        label="Click to create events"
-        description="Allow clicking time slots to create new events"
+        label="Создавать запись при нажатии"
+        description="При нажатии по временному интервалу создавать запись"
       >
         <Switch
           checked={viewSettings.day.enableTimeSlotClick}
@@ -426,10 +409,10 @@ const CalendarSettings = ({
       </ConfigRow>
     </ConfigSection>
     <Separator />
-    <ConfigSection title="Days View" icon={CalendarDays}>
+    <ConfigSection title="Вид нескольких дней" icon={CalendarDays}>
       <ConfigRow
-        label="Highlight today"
-        description="Highlight the current day column"
+        label="Подсветить текущий день"
+        description="Подсветить текущий день в колонке"
       >
         <Switch
           checked={viewSettings.days.highlightToday}
@@ -439,8 +422,8 @@ const CalendarSettings = ({
         />
       </ConfigRow>
       <ConfigRow
-        label="Current time indicator"
-        description="Show red line at current time"
+        label="Индикатор текущего времени"
+        description="Показать красную линию в текущее время"
       >
         <Switch
           checked={viewSettings.days.showCurrentTimeIndicator}
@@ -450,8 +433,8 @@ const CalendarSettings = ({
         />
       </ConfigRow>
       <ConfigRow
-        label="Hover time indicator"
-        description="Show time when hovering over time slots"
+        label="Время при наведении"
+        description="Показывать время при наведении курсора на временные интервалы"
       >
         <Switch
           checked={viewSettings.days.showHoverTimeIndicator}
@@ -461,8 +444,8 @@ const CalendarSettings = ({
         />
       </ConfigRow>
       <ConfigRow
-        label="Click time slots to create events"
-        description="Allow clicking time slots to create new events"
+        label="Создавать запись при нажатии"
+        description="При нажатии по временному интервалу создавать запись"
       >
         <Switch
           checked={viewSettings.days.enableTimeSlotClick}
@@ -472,8 +455,8 @@ const CalendarSettings = ({
         />
       </ConfigRow>
       <ConfigRow
-        label="Click time blocks to create events"
-        description="Allow clicking time blocks to create new events"
+        label="Создавать при нажатии по блоку времени"
+        description="При нажатии по временному блоку создавать запись"
       >
         <Switch
           checked={viewSettings.days.enableTimeBlockClick}
@@ -483,8 +466,8 @@ const CalendarSettings = ({
         />
       </ConfigRow>
       <ConfigRow
-        label="Expand multi-day events"
-        description="Show multi-day events across multiple columns"
+        label="Расширить многодневные мероприятия"
+        description="Показывать многодневные события в нескольких столбцах"
       >
         <Switch
           checked={viewSettings.days.expandMultiDayEvents}
@@ -495,10 +478,10 @@ const CalendarSettings = ({
       </ConfigRow>
     </ConfigSection>
     <Separator />
-    <ConfigSection title="Week View" icon={CalendarDays}>
+    <ConfigSection title="Вид недели" icon={CalendarDays}>
       <ConfigRow
-        label="Highlight today"
-        description="Highlight the current day column"
+        label="Подсветить текущий день"
+        description="Подсветить текущий день в колонке"
       >
         <Switch
           checked={viewSettings.week.highlightToday}
@@ -508,8 +491,8 @@ const CalendarSettings = ({
         />
       </ConfigRow>
       <ConfigRow
-        label="Current time indicator"
-        description="Show red line at current time"
+        label="Индикатор текущего времени"
+        description="Показать красную линию в текущее время"
       >
         <Switch
           checked={viewSettings.week.showCurrentTimeIndicator}

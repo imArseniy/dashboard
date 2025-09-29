@@ -8,7 +8,7 @@ type BreadcrumbItem = {
   link: string;
 };
 
-// This allows to add custom title as well
+// Это также позволяет добавить собственный заголовок
 const routeMapping: Record<string, BreadcrumbItem[]> = {
   '/dashboard': [{ title: 'Dashboard', link: '/dashboard' }],
   '/dashboard/employee': [
@@ -19,19 +19,19 @@ const routeMapping: Record<string, BreadcrumbItem[]> = {
     { title: 'Dashboard', link: '/dashboard' },
     { title: 'Product', link: '/dashboard/product' }
   ]
-  // Add more custom mappings as needed
+  // При необходимости добавьте больше пользовательских сопоставлений
 };
 
 export function useBreadcrumbs() {
   const pathname = usePathname();
 
   const breadcrumbs = useMemo(() => {
-    // Check if we have a custom mapping for this exact path
+    // Проверяем, есть ли у нас пользовательское сопоставление для этого точного пути
     if (routeMapping[pathname]) {
       return routeMapping[pathname];
     }
 
-    // If no exact match, fall back to generating breadcrumbs from the path
+    // Если точного совпадения нет, возвращаемся к созданию хлебных крошек из пути
     const segments = pathname.split('/').filter(Boolean);
     return segments.map((segment, index) => {
       const path = `/${segments.slice(0, index + 1).join('/')}`;

@@ -42,7 +42,7 @@ interface SearchDayPickerProps {
 export function SearchDayPicker({
   locale = enUS,
   className = '',
-  placeholder = 'Choose Day',
+  placeholder = 'Выбрать день',
   weekStartsOn = 1, // Monday as default first day of week
 }: SearchDayPickerProps) {
   const [open, setOpen] = useState(false);
@@ -161,7 +161,7 @@ export function SearchDayPicker({
               !selectedDay && 'text-muted-foreground',
               className,
             )}
-            title="Choose a day"
+            title="Выберите день"
           >
             {selectedDay ? (
               <AnimatePresence mode="wait">
@@ -196,7 +196,7 @@ export function SearchDayPicker({
       <PopoverContent className="w-[130px] p-0" align="start">
         <Command shouldFilter={false}>
           <CommandInput
-            placeholder="Cari hari..."
+            placeholder="Найти..."
             value={inputValue}
             onValueChange={(value) => {
               setInputValue(value);
@@ -204,7 +204,7 @@ export function SearchDayPicker({
             }}
           />
           <CommandList>
-            <CommandEmpty>Hari tidak ditemukan</CommandEmpty>
+            <CommandEmpty>День не найден</CommandEmpty>
             <CommandGroup>
               <ScrollArea className="h-[200px]">
                 {filteredDays.map((day) => (

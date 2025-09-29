@@ -14,9 +14,9 @@ export const FormFooter = ({
   onCancel,
   onSave,
   isSubmitting,
-  cancelText = 'Cancel',
-  saveText = 'Save',
-  savingText = 'Saving...',
+  cancelText = 'Отмена',
+  saveText = 'Сохранить',
+  savingText = 'Сохраняем...',
 }: FormFooterProps) => (
   <div className="flex flex-row gap-2">
     <Button variant="outline" onClick={onCancel} className="cursor-pointer">

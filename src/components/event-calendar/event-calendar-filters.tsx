@@ -117,7 +117,7 @@ export const EventCalendarFilters = () => {
           className="h-9 gap-2 px-4 text-sm font-medium transition-all"
         >
           <Search className="h-4 w-4" />
-          Search Events
+          Поиск
           {filters.search && (
             <Badge variant="secondary" className="ml-1">
               1
@@ -131,7 +131,7 @@ export const EventCalendarFilters = () => {
               className="h-9 gap-2 px-4 text-sm font-medium transition-all"
             >
               <Tag className="h-4 w-4" />
-              Categories
+              Категории
               {filters.categories.length > 0 && (
                 <Badge variant="secondary" className="ml-1">
                   {filters.categories.length}
@@ -142,7 +142,7 @@ export const EventCalendarFilters = () => {
           <PopoverContent className="w-64 p-4">
             <div className="space-y-3">
               <h4 className="text-muted-foreground text-sm font-medium">
-                Select Categories
+                Выбрать категорию
               </h4>
               <div className="max-h-48 space-y-3 overflow-y-auto">
                 {CATEGORY_OPTIONS.map((category, index) => (
@@ -173,7 +173,7 @@ export const EventCalendarFilters = () => {
               className="h-9 gap-2 px-4 text-sm font-medium transition-all"
             >
               <div className="h-4 w-4 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 ring-2 ring-white" />
-              Colors
+              Цвет
               {filters.colors.length > 0 && (
                 <Badge variant="secondary" className="ml-1">
                   {filters.colors.length}
@@ -184,7 +184,7 @@ export const EventCalendarFilters = () => {
           <PopoverContent className="w-64 p-4">
             <div className="space-y-3">
               <h4 className="text-muted-foreground text-sm font-medium">
-                Select Colors
+                Выбрать цвет
               </h4>
               <div className="grid grid-cols-2 gap-3">
                 {EVENT_COLORS.map((color) => {
@@ -225,17 +225,17 @@ export const EventCalendarFilters = () => {
         >
           <SelectTrigger className="h-9 w-[160px] gap-2 text-sm font-medium">
             <Repeat className="h-4 w-4" />
-            <SelectValue placeholder="All Events" />
+            <SelectValue placeholder="Все записи" />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all" className="text-sm">
-              All Events
+              Все записи
             </SelectItem>
             <SelectItem value="repeating" className="text-sm">
-              Repeating Only
+              Только повторяющиеся
             </SelectItem>
             <SelectItem value="single" className="text-sm">
-              Single Events
+              Одиночные
             </SelectItem>
           </SelectContent>
         </Select>

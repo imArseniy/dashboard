@@ -17,7 +17,7 @@ import { CATEGORY_OPTIONS, LOCALES } from '@/constants/calendar-constant';
 import { EventTypes } from '@/db/schema';
 import { EVENT_VIEW_CONFIG } from '@/components/event-calendar/event-list';
 import { convertTimeToMinutes, formatTimeDisplay, isSameDay } from './date';
-import { enUS } from 'date-fns/locale';
+import { enUS, ru } from 'date-fns/locale';
 
 /**
  * @namespace CalendarHooks
@@ -615,5 +615,5 @@ export const getColorClasses = (color: string) =>
  * @returns The corresponding Day.js locale object, or falls back to English (US) if not found.
  */
 export const getLocaleFromCode = (code: string) => {
-  return LOCALES.find((l) => l.value === code)?.locale || enUS;
+  return LOCALES.find((l) => l.value === code)?.locale || ru;
 };
