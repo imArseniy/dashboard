@@ -49,10 +49,10 @@ export const EventDetailsForm = memo(
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
-                  Event Title <span className="text-destructive">*</span>
+                  Название записи <span className="text-destructive">*</span>
                 </FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter event title" {...field} />
+                  <Input placeholder="Введите название записи" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -66,7 +66,7 @@ export const EventDetailsForm = memo(
                 <FormLabel>Description</FormLabel>
                 <FormControl>
                   <Textarea
-                    placeholder="Short description of the event"
+                    placeholder="Короткое описание записи"
                     rows={3}
                     {...field}
                     value={field.value || ''}
@@ -84,7 +84,7 @@ export const EventDetailsForm = memo(
                 <DateSelector
                   value={field.value}
                   onChange={field.onChange}
-                  label="Start Date"
+                  label="Дата начала"
                   locale={locale}
                   required
                 />
@@ -97,7 +97,7 @@ export const EventDetailsForm = memo(
                 <TimeSelector
                   value={field.value}
                   onChange={field.onChange}
-                  label="Start Time"
+                  label="Время начала"
                   required
                 />
               )}
@@ -111,7 +111,7 @@ export const EventDetailsForm = memo(
                 <DateSelector
                   value={field.value}
                   onChange={field.onChange}
-                  label="End Date"
+                  label="Дата окончания"
                   locale={locale}
                   required
                 />
@@ -124,7 +124,7 @@ export const EventDetailsForm = memo(
                 <TimeSelector
                   value={field.value}
                   onChange={field.onChange}
-                  label="End Time"
+                  label="Время окончания"
                   required
                 />
               )}
@@ -137,10 +137,10 @@ export const EventDetailsForm = memo(
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
-                    Location <span className="text-destructive">*</span>
+                    Местоположение <span className="text-destructive">*</span>
                   </FormLabel>
                   <FormControl>
-                    <Input placeholder="Location event" {...field} />
+                    <Input placeholder="Местоположение записи" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -152,7 +152,7 @@ export const EventDetailsForm = memo(
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
-                    Category <span className="text-destructive">*</span>
+                    Категория <span className="text-destructive">*</span>
                   </FormLabel>
                   <Select
                     onValueChange={field.onChange}
@@ -160,7 +160,7 @@ export const EventDetailsForm = memo(
                   >
                     <FormControl>
                       <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Select a category" />
+                        <SelectValue placeholder="Выберите категорию" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -182,14 +182,14 @@ export const EventDetailsForm = memo(
               name="color"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Event Color</FormLabel>
+                  <FormLabel>Цвет записи</FormLabel>
                   <Select
                     onValueChange={field.onChange}
                     defaultValue={field.value}
                   >
                     <FormControl>
                       <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Choose a color" />
+                        <SelectValue placeholder="Выберите цвет" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>

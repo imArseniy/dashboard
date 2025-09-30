@@ -403,7 +403,7 @@ export const EventCalendarFilters = () => {
               className="text-muted-foreground hover:text-foreground hover:bg-muted border-muted-foreground/30 hover:border-muted-foreground/50 h-7 gap-1.5 border border-dashed px-3 text-xs font-medium transition-all"
             >
               <X className="h-3.5 w-3.5" />
-              Clear All
+              Очистить всё
             </Button>
           </>
         )}

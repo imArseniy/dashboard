@@ -19,7 +19,7 @@ import { useShallow } from 'zustand/shallow';
 
 const EmptyState = () => (
   <div className="text-muted-foreground py-12 text-center">
-    No events scheduled for this date
+    На эту дату не запланировано никаких мероприятий
   </div>
 );
 
@@ -82,10 +82,10 @@ export function MonthDayEventsDialog() {
       <DialogContent>
         <DialogHeader className="mb-4">
           <DialogTitle>
-            Events {formattedDate && <span>{formattedDate}</span>}
+            События {formattedDate && <span>{formattedDate}</span>}
           </DialogTitle>
           <DialogDescription>
-            List of all events scheduled for this date
+            Список всех мероприятий, запланированных на эту дату
           </DialogDescription>
         </DialogHeader>
         <EventListContent
@@ -95,7 +95,7 @@ export function MonthDayEventsDialog() {
         />
         <DialogFooter className="">
           <Button variant="outline" onClick={closeDayEventsDialog}>
-            Close
+            Закрыть
           </Button>
         </DialogFooter>
       </DialogContent>

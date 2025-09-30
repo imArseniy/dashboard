@@ -44,7 +44,7 @@ function FormDatePicker<
     minDate,
     maxDate,
     disabledDates = [],
-    placeholder = 'Pick a date'
+    placeholder = 'Выберите дату'
   } = config;
 
   return (

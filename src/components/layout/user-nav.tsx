@@ -42,11 +42,11 @@ export function UserNav() {
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
             <DropdownMenuItem onClick={() => router.push('/dashboard/profile')}>
-              Profile
+              Профиль
             </DropdownMenuItem>
-            <DropdownMenuItem>Billing</DropdownMenuItem>
-            <DropdownMenuItem>Settings</DropdownMenuItem>
-            <DropdownMenuItem>New Team</DropdownMenuItem>
+            <DropdownMenuItem>Платежи</DropdownMenuItem>
+            <DropdownMenuItem>Настройки</DropdownMenuItem>
+            <DropdownMenuItem>Новая команда</DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuItem>

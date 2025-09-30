@@ -29,24 +29,24 @@ type TabConfig = {
 
 const tabsConfig: TabConfig[] = [
   {
-    label: 'Day',
+    label: 'День',
     value: CalendarViewType.DAY,
   },
   {
-    label: 'Days',
+    label: 'Дни',
     value: CalendarViewType.DAYS,
     hasDropdown: true,
   },
   {
-    label: 'Week',
+    label: 'Неделя',
     value: CalendarViewType.WEEK,
   },
   {
-    label: 'Month',
+    label: 'Месяц',
     value: CalendarViewType.MONTH,
   },
   {
-    label: 'Year',
+    label: 'Год',
     value: CalendarViewType.YEAR,
   },
 ];
@@ -166,7 +166,7 @@ export function EventCalendarTabs({
       await setQueryDaysCount(days);
       updateView(CalendarViewType.DAYS);
     } catch (error) {
-      console.error('Failed to update URL state:', error);
+      console.error('Не удалось обновить состояние URL-адреса:', error);
     }
   };
 

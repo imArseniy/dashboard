@@ -72,7 +72,7 @@ export const EventSearchDialog = ({
           // TODO: Implement your actual search API/service connection here
         } catch (err) {
           if (err instanceof Error && err.name !== 'AbortError') {
-            setError('An error occurred while searching events');
+            setError('При поиске записей произошла ошибка');
             setSearchResults([]);
           }
         } finally {
@@ -134,7 +134,7 @@ export const EventSearchDialog = ({
       // TODO: Implement your actual search API/service connection here
     } catch (err) {
       console.error(err);
-      setError('Failed to load more events');
+      setError('Не удалось загрузить больше записей');
     } finally {
       setIsLoading(false);
     }
@@ -144,7 +144,7 @@ export const EventSearchDialog = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="flex max-h-[80vh] max-w-2xl flex-col">
         <DialogHeader>
-          <DialogTitle>Search Events</DialogTitle>
+          <DialogTitle>Поиск записей</DialogTitle>
         </DialogHeader>
         <div className="flex-1 space-y-4 overflow-hidden">
           <div className="relative">
@@ -162,10 +162,10 @@ export const EventSearchDialog = ({
                 <>
                   Found {totalCount} event{totalCount !== 1 ? 's' : ''} matching
                   &quot;{searchQuery}&quot;
-                  {hasMore && ` • Showing first ${searchResults.length}`}
+                  {hasMore && ` • Показывать первым ${searchResults.length}`}
                 </>
               ) : (
-                `No events found matching "${searchQuery}"`
+                `Не найдено совпадающих записей "${searchQuery}"`
               )}
             </div>
           )}
@@ -180,7 +180,7 @@ export const EventSearchDialog = ({
                 <div className="flex items-center justify-center py-8">
                   <Loader2 className="h-6 w-6 animate-spin" />
                   <span className="text-muted-foreground ml-2 text-sm">
-                    Searching events...
+                    Ищем записи...
                   </span>
                 </div>
               ) : searchResults.length > 0 ? (
@@ -203,10 +203,10 @@ export const EventSearchDialog = ({
                         {isLoading ? (
                           <>
                             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                            Loading more...
+                            Загружаем записи...
                           </>
                         ) : (
-                          'Load more events'
+                          'Загружаем больше записей'
                         )}
                       </button>
                     </div>
@@ -215,16 +215,16 @@ export const EventSearchDialog = ({
               ) : searchQuery.trim().length >= 2 && !isLoading ? (
                 <div className="text-muted-foreground py-8 text-center">
                   <Search className="mx-auto mb-2 h-8 w-8 opacity-50" />
-                  <p>No events found matching &quot;{searchQuery}&quot;</p>
+                  <p>Не найдено совпадающих записей &quot;{searchQuery}&quot;</p>
                   <p className="mt-1 text-xs">
-                    Try different keywords or check your spelling
+                    Попробуйте использовать другие ключевые слова или проверьте правильность написания
                   </p>
                 </div>
               ) : (
                 <div className="text-muted-foreground py-8 text-center">
                   <Search className="mx-auto mb-2 h-8 w-8 opacity-50" />
-                  <p>Start typing to search events...</p>
-                  <p className="mt-1 text-xs">Enter at least 2 characters</p>
+                  <p>Начните вводить текст для поиска записей...</p>
+                  <p className="mt-1 text-xs">Введите минимум 2 символа</p>
                 </div>
               )}
             </ScrollArea>

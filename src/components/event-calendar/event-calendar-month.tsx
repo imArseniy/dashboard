@@ -101,7 +101,7 @@ export function EventCalendarMonth({ events, baseDate }: CalendarMonthProps) {
         ref={daysContainerRef}
         className="grid grid-cols-7 gap-1 p-2 sm:gap-2"
         role="grid"
-        aria-label="Month calendar grid"
+        aria-label="Календарная сетка по месяцам"
       >
         {visibleDays.map((date, index) => (
           <DayCell

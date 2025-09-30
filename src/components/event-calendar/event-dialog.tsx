@@ -97,7 +97,7 @@ export default function EventDialog() {
           color: selectedEvent.color,
         });
       } catch (error) {
-        console.error('Error resetting form with event data:', error);
+        console.error('Ошибка при сбросе формы с данными о событии:', error);
       }
     }
   }, [selectedEvent, form]);
@@ -124,9 +124,9 @@ export default function EventDialog() {
     <Dialog open={isDialogOpen} onOpenChange={closeEventDialog} modal={false}>
       <DialogContent className="sm:max-w-[550px]">
         <DialogHeader>
-          <DialogTitle>Event Details</DialogTitle>
+          <DialogTitle>Подробности о записии</DialogTitle>
           <DialogDescription>
-            Event details {selectedEvent?.title}
+            Подробности о записии {selectedEvent?.title}
           </DialogDescription>
         </DialogHeader>
         <ScrollArea className="h-[350px] w-full sm:h-[500px]">

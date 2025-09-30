@@ -502,8 +502,8 @@ const CalendarSettings = ({
         />
       </ConfigRow>
       <ConfigRow
-        label="Hover time indicator"
-        description="Show time when hovering over time slots"
+        label="Индикатор времени при наведении"
+        description="Показывать время при наведении на временные интервалы"
       >
         <Switch
           checked={viewSettings.week.showHoverTimeIndicator}
@@ -513,8 +513,8 @@ const CalendarSettings = ({
         />
       </ConfigRow>
       <ConfigRow
-        label="Click time slots to create events"
-        description="Allow clicking time slots to create new events"
+        label="Создавать запись при нажатии по временному слоту"
+        description="Разрешить создавать записи по клику по временным интервалам"
       >
         <Switch
           checked={viewSettings.week.enableTimeSlotClick}
@@ -524,8 +524,8 @@ const CalendarSettings = ({
         />
       </ConfigRow>
       <ConfigRow
-        label="Click time blocks to create events"
-        description="Allow clicking time blocks to create new events"
+        label="Создавать запись при нажатии по временному блоку"
+        description="Разрешить создавать записи по клику по временному блоку"
       >
         <Switch
           checked={viewSettings.week.enableTimeBlockClick}
@@ -535,8 +535,8 @@ const CalendarSettings = ({
         />
       </ConfigRow>
       <ConfigRow
-        label="Expand multi-day events"
-        description="Show multi-day events across multiple columns"
+        label="Расширить количество многодневных мероприятий"
+        description="Отображать многодневные события в нескольких столбцах"
       >
         <Switch
           checked={viewSettings.week.expandMultiDayEvents}
@@ -547,10 +547,10 @@ const CalendarSettings = ({
       </ConfigRow>
     </ConfigSection>
     <Separator />
-    <ConfigSection title="Month View" icon={CalendarDays}>
+    <ConfigSection title="Месячный вид" icon={CalendarDays}>
       <ConfigRow
-        label="Events per day limit"
-        description="Maximum events shown before +more indicator"
+        label="Количество событий в день ограничено"
+        description="Максимальное количество событий, показанных ранее + дополнительный индикатор"
       >
         <Input
           type="number"
@@ -564,8 +564,8 @@ const CalendarSettings = ({
         />
       </ConfigRow>
       <ConfigRow
-        label="Show more events indicator"
-        description="Display +X more when events exceed limit"
+        label="Показать индикатор дополнительных событий"
+        description="Отображать +X больше, когда события превышают лимит"
       >
         <Switch
           checked={viewSettings.month.showMoreEventsIndicator}
@@ -575,8 +575,8 @@ const CalendarSettings = ({
         />
       </ConfigRow>
       <ConfigRow
-        label="Hide outside days"
-        description="Hide days from previous/next month"
+        label="Скрывать за пределы дня"
+        description="Скрыть дни из предыдущего/следующего месяца"
       >
         <Switch
           checked={viewSettings.month.hideOutsideDays}
@@ -587,10 +587,10 @@ const CalendarSettings = ({
       </ConfigRow>
     </ConfigSection>
     <Separator />
-    <ConfigSection title="Year View" icon={Sun}>
+    <ConfigSection title="Годовой вид" icon={Sun}>
       <ConfigRow
-        label="Show month labels"
-        description="Display month names in year view"
+        label="Показывать метки месяцев"
+        description="Отображение названий месяцев в режиме просмотра за год"
       >
         <Switch
           checked={viewSettings.year.showMonthLabels}
@@ -600,8 +600,8 @@ const CalendarSettings = ({
         />
       </ConfigRow>
       <ConfigRow
-        label="Quarter view mode"
-        description="Group months by quarters instead of 12-month grid"
+        label="Режим просмотра кварталами"
+        description="Группируйте месяцы по кварталам вместо 12-месячной сетки"
       >
         <Switch
           checked={viewSettings.year.quarterView}
@@ -611,8 +611,8 @@ const CalendarSettings = ({
         />
       </ConfigRow>
       <ConfigRow
-        label="Highlight current month"
-        description="Emphasize the current month in year view"
+        label="Подсвечивать текущий месяц"
+        description="Выделить текущий месяц в годовом разрезе"
       >
         <Switch
           checked={viewSettings.year.highlightCurrentMonth}
@@ -622,8 +622,8 @@ const CalendarSettings = ({
         />
       </ConfigRow>
       <ConfigRow
-        label="Enable event preview"
-        description="Show event indicators in year view"
+        label="Включить предварительный просмотр событий"
+        description="Отображать индикаторы событий в годовом разрезе"
       >
         <Switch
           checked={viewSettings.year.enableEventPreview}
@@ -635,8 +635,8 @@ const CalendarSettings = ({
       {viewSettings.year.enableEventPreview && (
         <>
           <ConfigRow
-            label="Preview events per month"
-            description="Max events shown per month in year view"
+            label="Предварительный просмотр событий за месяц"
+            description="Максимальное количество событий, отображаемых за месяц в режиме просмотра за год"
           >
             <Input
               type="number"
@@ -652,8 +652,8 @@ const CalendarSettings = ({
             />
           </ConfigRow>
           <ConfigRow
-            label="Show more events indicator"
-            description="Display +X more when events exceed limit"
+            label="Показать индикатор дополнительных событий"
+            description="Отображать +X больше, когда события превышают лимит"
           >
             <Switch
               checked={viewSettings.year.showMoreEventsIndicator}
@@ -670,7 +670,7 @@ const CalendarSettings = ({
 
 const IntegrationSettings = () => (
   <div className="space-y-8">
-    <ConfigSection title="External Integrations" icon={Zap}>
+    <ConfigSection title="Интеграции со сторонними сервисами" icon={Zap}>
       <div className="text-muted-foreground bg-muted/30 rounded-lg p-4 text-sm">
         <div className="mb-2 flex items-center gap-2">
           <Zap className="h-4 w-4" />

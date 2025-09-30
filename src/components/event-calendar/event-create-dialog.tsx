@@ -95,15 +95,15 @@ export default function EventCreateDialog() {
     >
       <DialogContent className="sm:max-w-[550px]">
         <DialogHeader>
-          <DialogTitle>Add New Event</DialogTitle>
+          <DialogTitle>Добавить новую запись</DialogTitle>
           <DialogDescription>
-            Fill in the event details to add it to the calendar
+            Заполните информацию о записи, чтобы добавить её в календарь
           </DialogDescription>
         </DialogHeader>
         <Tabs className="w-full" defaultValue="edit">
           <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="edit">Edit</TabsTrigger>
-            <TabsTrigger value="preview">Preview</TabsTrigger>
+            <TabsTrigger value="edit">Редактировать</TabsTrigger>
+            <TabsTrigger value="preview">Просмотр</TabsTrigger>
           </TabsList>
           <TabsContent value="edit" className="mt-4">
             <ScrollArea className="h-[500px] w-full">

@@ -79,28 +79,28 @@ export function NavUser({
             <DropdownMenuGroup>
               <DropdownMenuItem>
                 <IconSparkles className='mr-2 h-4 w-4' />
-                Upgrade to Pro
+                Перейти на ПРО уровень
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem>
                 <IconCircleCheck className='mr-2 h-4 w-4' />
-                Account
+                Аккаунт
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <IconCreditCard className='mr-2 h-4 w-4' />
-                Billing
+                Выставление счетов
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <IconBell className='mr-2 h-4 w-4' />
-                Notifications
+                Уведомления
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
               <IconLogout className='mr-2 h-4 w-4' />
-              Log out
+              Выйти
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

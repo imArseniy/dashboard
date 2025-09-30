@@ -37,7 +37,7 @@ function FormSelect<
   description,
   required,
   options,
-  placeholder = 'Select an option',
+  placeholder = 'Выберите нужный вариант',
   disabled,
   className
 }: FormSelectProps<TFieldValues, TName>) {

@@ -43,9 +43,9 @@ export const EventPreviewCalendar = ({
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-1">
       <Card className="h-fit">
         <CardHeader>
-          <CardTitle>Calendar Preview</CardTitle>
+          <CardTitle>Предварительный просмтр</CardTitle>
           <CardDescription>
-            How your event will appear in the calendar
+            Как будет выглядеть запись, когды вы добавите её в календарь
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -98,7 +98,7 @@ export const EventPreviewCalendar = ({
             </div>
             {watchedValues.title && (
               <div>
-                <h3 className="mb-2 text-sm font-medium">Event Tile</h3>
+                <h3 className="mb-2 text-sm font-medium">Название записи</h3>
                 <div
                   className="rounded-lg border p-3 transition-all hover:shadow-sm"
                   style={{
@@ -135,8 +135,8 @@ export const EventPreviewCalendar = ({
       </Card>
       <Card>
         <CardHeader>
-          <CardTitle>Event Details</CardTitle>
-          <CardDescription>Complete event information</CardDescription>
+          <CardTitle>Подробности о записи</CardTitle>
+          <CardDescription>Полная информация о записи</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
@@ -177,7 +177,7 @@ export const EventPreviewCalendar = ({
                         </span>
                       </>
                     ) : (
-                      'No time specified'
+                      'Время не указано'
                     )}
                   </p>
                 </div>
@@ -188,7 +188,7 @@ export const EventPreviewCalendar = ({
                   <div>
                     <p className="font-medium">{watchedValues.location}</p>
                     <p className="text-muted-foreground text-sm">
-                      Event location
+                      Местоположение записи
                     </p>
                   </div>
                 </div>
@@ -201,7 +201,7 @@ export const EventPreviewCalendar = ({
                       {getCategoryLabel(watchedValues.category)}
                     </Badge>
                     <p className="text-muted-foreground mt-1 text-sm">
-                      Category
+                      Категория
                     </p>
                   </div>
                 </div>

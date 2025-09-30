@@ -145,7 +145,7 @@ export default function EventCalendarToolbar() {
                 onClick={handleNavigatePrevious}
               >
                 <ChevronLeft className="h-4 w-4" />
-                Previous
+                Предыдущий
               </Button>
               <Button
                 variant={'outline'}
@@ -153,7 +153,7 @@ export default function EventCalendarToolbar() {
                 onClick={handleNavigateNext}
               >
                 <ChevronRight className="h-4 w-4" />
-                Next
+                Следующий
               </Button>
             </div>
             <Button
@@ -194,7 +194,7 @@ export default function EventCalendarToolbar() {
             className="h-9 gap-1.5 px-3"
           >
             <Plus className="h-3.5 w-3.5" />
-            Add Event
+            Добавить запись
           </Button>
         </div>
       </div>

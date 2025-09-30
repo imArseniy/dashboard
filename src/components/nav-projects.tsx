@@ -52,7 +52,7 @@ export function NavProjects({
               <DropdownMenuTrigger asChild>
                 <SidebarMenuAction showOnHover>
                   <IconDots />
-                  <span className='sr-only'>More</span>
+                  <span className='sr-only'>Больше</span>
                 </SidebarMenuAction>
               </DropdownMenuTrigger>
               <DropdownMenuContent
@@ -62,16 +62,16 @@ export function NavProjects({
               >
                 <DropdownMenuItem>
                   <IconFolder className='text-muted-foreground mr-2 h-4 w-4' />
-                  <span>View Project</span>
+                  <span>Посмотреть проект</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   <IconShare className='text-muted-foreground mr-2 h-4 w-4' />
-                  <span>Share Project</span>
+                  <span>Поделиться проектом</span>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
                   <IconTrash className='text-muted-foreground mr-2 h-4 w-4' />
-                  <span>Delete Project</span>
+                  <span>Удалить проект</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -80,7 +80,7 @@ export function NavProjects({
         <SidebarMenuItem>
           <SidebarMenuButton className='text-sidebar-foreground/70'>
             <IconDots className='text-sidebar-foreground/70' />
-            <span>More</span>
+            <span>Больше</span>
           </SidebarMenuButton>
         </SidebarMenuItem>
       </SidebarMenu>

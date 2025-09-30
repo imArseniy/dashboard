@@ -15,37 +15,37 @@ import {
 
 const DEFAULT_THEMES = [
   {
-    name: 'Default',
+    name: 'Обычный',
     value: 'default'
   },
   {
-    name: 'Blue',
+    name: 'Синий',
     value: 'blue'
   },
   {
-    name: 'Green',
+    name: 'Зелёный',
     value: 'green'
   },
   {
-    name: 'Amber',
+    name: 'Янтарный',
     value: 'amber'
   }
 ];
 
 const SCALED_THEMES = [
   {
-    name: 'Default',
+    name: 'Обычный',
     value: 'default-scaled'
   },
   {
-    name: 'Blue',
+    name: 'Синий',
     value: 'blue-scaled'
   }
 ];
 
 const MONO_THEMES = [
   {
-    name: 'Mono',
+    name: 'Моно',
     value: 'mono-scaled'
   }
 ];
@@ -56,7 +56,7 @@ export function ThemeSelector() {
   return (
     <div className='flex items-center gap-2'>
       <Label htmlFor='theme-selector' className='sr-only'>
-        Theme
+        Темы
       </Label>
       <Select value={activeTheme} onValueChange={setActiveTheme}>
         <SelectTrigger
@@ -64,9 +64,9 @@ export function ThemeSelector() {
           className='justify-start *:data-[slot=select-value]:w-12'
         >
           <span className='text-muted-foreground hidden sm:block'>
-            Select a theme:
+            Выберите тему:
           </span>
-          <span className='text-muted-foreground block sm:hidden'>Theme</span>
+          <span className='text-muted-foreground block sm:hidden'>Темы</span>
           <SelectValue placeholder='Select a theme' />
         </SelectTrigger>
         <SelectContent align='end'>
