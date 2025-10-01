@@ -19,24 +19,46 @@ import {
 } from '@/components/ui/chart';
 
 const chartData = [
-  { month: 'January', desktop: 186, mobile: 80 },
-  { month: 'February', desktop: 305, mobile: 200 },
-  { month: 'March', desktop: 237, mobile: 120 },
-  { month: 'April', desktop: 73, mobile: 190 },
-  { month: 'May', desktop: 209, mobile: 130 },
-  { month: 'June', desktop: 214, mobile: 140 }
+  { day: '1', order: 1434, delivery: 625 },
+  { day: '2', order: 2552, delivery: 6257 },
+  { day: '3', order: 1353, delivery: 355 },
+  { day: '4', order: 3156, delivery: 423 },
+  { day: '5', order: 5623, delivery: 4335 },
+  { day: '6', order: 5241, delivery: 6224 },
+  { day: '7', order: 10244, delivery: 1462 },
+  { day: '8', order: 1356, delivery: 2444 },
+  { day: '9', order: 3135, delivery: 3033 },
+  { day: '10', order: 1434, delivery: 625 },
+  { day: '11', order: 1434, delivery: 625 },
+  { day: '12', order: 1434, delivery: 625 },
+  { day: '13', order: 1434, delivery: 625 },
+  { day: '14', order: 1434, delivery: 625 },
+  { day: '15', order: 1434, delivery: 625 },
+  { day: '16', order: 1434, delivery: 625 },
+  { day: '17', order: 1434, delivery: 625 },
+  { day: '18', order: 1434, delivery: 625 },
+  { day: '19', order: 1434, delivery: 625 },
+  { day: '20', order: 1434, delivery: 625 },
+  { day: '21', order: 1434, delivery: 625 },
+  { day: '22', order: 1434, delivery: 625 },
+  { day: '23', order: 1434, delivery: 625 },
+  { day: '24', order: 1434, delivery: 625 },
+  { day: '25', order: 1434, delivery: 625 },
+  { day: '26', order: 1434, delivery: 625 },
+  { day: '27', order: 1434, delivery: 625 },
+  { day: '28', order: 1434, delivery: 625 },
 ];
 
 const chartConfig = {
   visitors: {
     label: 'Visitors'
   },
-  desktop: {
-    label: 'Desktop',
+  order: {
+    label: 'Заказано',
     color: 'var(--primary)'
   },
-  mobile: {
-    label: 'Mobile',
+  delivery: {
+    label: 'Доставлено',
     color: 'var(--primary)'
   }
 } satisfies ChartConfig;
@@ -90,7 +112,7 @@ export function AreaGraph() {
             </defs>
             <CartesianGrid vertical={false} />
             <XAxis
-              dataKey='month'
+              dataKey='day'
               tickLine={false}
               axisLine={false}
               tickMargin={8}
@@ -102,17 +124,17 @@ export function AreaGraph() {
               content={<ChartTooltipContent indicator='dot' />}
             />
             <Area
-              dataKey='mobile'
+              dataKey='delivery'
               type='natural'
-              fill='url(#fillMobile)'
-              stroke='var(--color-mobile)'
+              fill='url(#fillDelivery)'
+              stroke='var(--color-delivery)'
               stackId='a'
             />
             <Area
-              dataKey='desktop'
+              dataKey='order'
               type='natural'
-              fill='url(#fillDesktop)'
-              stroke='var(--color-desktop)'
+              fill='url(#fillOrder)'
+              stroke='var(--color-order)'
               stackId='a'
             />
           </AreaChart>

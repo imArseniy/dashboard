@@ -13,11 +13,13 @@ import React from 'react';
 
 export default function OverViewLayout({
   sales,
+  sales_stats,
   pie_stats,
   bar_stats,
   area_stats
 }: {
   sales: React.ReactNode;
+  sales_stats: React.ReactNode;
   pie_stats: React.ReactNode;
   bar_stats: React.ReactNode;
   area_stats: React.ReactNode;
@@ -123,6 +125,8 @@ export default function OverViewLayout({
           </Card>
         </div>
         <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-7'>
+          <div className="col-span-4">{sales_stats}</div>
+          <div className='col-span-4 md:col-span-3'>{sales}</div>
           <div className='col-span-4'>{bar_stats}</div>
           <div className='col-span-4 md:col-span-3'>
             {/* sales arallel routes */}

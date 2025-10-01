@@ -56,7 +56,7 @@ export function OrgSwitcher({
                 <GalleryVerticalEnd className='size-4' />
               </div>
               <div className='flex flex-col gap-0.5 leading-none'>
-                <span className='font-semibold'>Следующий стартер</span>
+                <span className='font-semibold'>ИП Смирнов А. В.</span>
                 <span className=''>{selectedTenant.name}</span>
               </div>
               <ChevronsUpDown className='ml-auto' />

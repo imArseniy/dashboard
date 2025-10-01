@@ -10,14 +10,18 @@ type BreadcrumbItem = {
 
 // Это также позволяет добавить собственный заголовок
 const routeMapping: Record<string, BreadcrumbItem[]> = {
-  '/dashboard': [{ title: 'Dashboard', link: '/dashboard' }],
+  '/dashboard': [{ title: 'Обзор', link: '/dashboard' }],
   '/dashboard/employee': [
-    { title: 'Dashboard', link: '/dashboard' },
-    { title: 'Employee', link: '/dashboard/employee' }
+    { title: 'Дашборд', link: '/dashboard' },
+    { title: 'Платежи', link: '/dashboard/employee' }
   ],
   '/dashboard/product': [
-    { title: 'Dashboard', link: '/dashboard' },
-    { title: 'Product', link: '/dashboard/product' }
+    { title: 'Дашборд', link: '/dashboard' },
+    { title: 'Товары', link: '/dashboard/product' }
+  ],
+  '/dashboard/overview': [
+    { title: 'Дашборд', link: '/dashboard' },
+    { title: 'Обзор', link: '/dashboard/overview' }
   ]
   // При необходимости добавьте больше пользовательских сопоставлений
 };

@@ -48,15 +48,14 @@ import * as React from 'react';
 import { Icons } from '../icons';
 import { OrgSwitcher } from '../org-switcher';
 export const company = {
-  name: 'Acme Inc',
+  name: 'ИП Смирнов А. В.',
   logo: IconPhotoUp,
   plan: 'Enterprise'
 };
 
 const tenants = [
-  { id: '1', name: 'Acme Inc' },
-  { id: '2', name: 'Beta Corp' },
-  { id: '3', name: 'Gamma Ltd' }
+  { id: '1', name: 'Строй Ритейл' },
+  { id: '2', name: 'Запмарт' },
 ];
 
 export default function AppSidebar() {

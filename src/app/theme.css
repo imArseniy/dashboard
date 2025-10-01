@@ -48,6 +48,17 @@ body {
   }
 }
 
+.theme-violet,
+.theme-violet-scaled {
+  --primary: var(--color-violet-600);
+  --primary-foreground: var(--color-violet-50);
+
+  @variant dark {
+    --primary: var(--color-violet-500);
+    --primary-foreground: var(--color-violet-50);
+  }
+}
+
 .theme-green,
 .theme-green-scaled {
   --primary: var(--color-lime-600);

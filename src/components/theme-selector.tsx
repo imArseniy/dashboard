@@ -23,6 +23,10 @@ const DEFAULT_THEMES = [
     value: 'blue'
   },
   {
+    name: 'Фиолетовый',
+    value: 'violet'
+  },
+  {
     name: 'Зелёный',
     value: 'green'
   },
