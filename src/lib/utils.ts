@@ -1,26 +1,34 @@
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { config } from "@/components/config";
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function formatBytes(
-  bytes: number,
-  opts: {
-    decimals?: number;
-    sizeType?: 'accurate' | 'normal';
-  } = {}
-) {
-  const { decimals = 0, sizeType = 'normal' } = opts;
+export function capitalize(str: string) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
 
-  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-  const accurateSizes = ['Bytes', 'KiB', 'MiB', 'GiB', 'TiB'];
-  if (bytes === 0) return '0 Byte';
-  const i = Math.floor(Math.log(bytes) / Math.log(1024));
-  return `${(bytes / Math.pow(1024, i)).toFixed(decimals)} ${
-    sizeType === 'accurate'
-      ? (accurateSizes[i] ?? 'Bytest')
-      : (sizes[i] ?? 'Bytes')
-  }`;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+type GroupBy<T, K extends keyof T> = Record<string, T[]>;
+
+export function groupBy<T, K extends keyof T>(
+  array: T[],
+  key: K
+): GroupBy<T, K> {
+  return array.reduce((acc, item) => {
+    const keyValue = String(item[key]);
+    if (!acc[keyValue]) {
+      acc[keyValue] = [];
+    }
+    acc[keyValue].push(item);
+    return acc;
+  }, {} as GroupBy<T, K>);
+}
+
+export function absoluteUrl(path: string) {
+  return process.env.NODE_ENV === "development"
+    ? `http://localhost:3000${path}`
+    : `https://${config.appUrl}${path}`;
 }
