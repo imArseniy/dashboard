@@ -13,6 +13,25 @@ import { IconTrendingDown, IconTrendingUp } from '@tabler/icons-react';
 import React from 'react';
 import { Button } from "@/components/ui/button"
 import Orders from './@orders/page';
+import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
+
+const logistic = [
+  {
+    id: "1",
+    status: "Ожидает сборки",
+    amount: 6,
+  },
+  {
+    id: "2",
+    status: "Ожидает отгрузки",
+    amount: 2,
+  },
+  {
+    id: "3",
+    status: "Доставляются",
+    amount: 17,
+  },
+];
 
 export default function OverViewLayout({
   sales,
@@ -21,6 +40,7 @@ export default function OverViewLayout({
   bar_stats,
   area_stats,
   orders,
+  logistic,
 }: {
   sales: React.ReactNode;
   sales_stats: React.ReactNode;
@@ -28,6 +48,7 @@ export default function OverViewLayout({
   bar_stats: React.ReactNode;
   area_stats: React.ReactNode;
   orders: React.ReactNode;
+  logistic: React.ReactNode;
 }) {
   return (
     <PageContainer>
@@ -140,6 +161,7 @@ export default function OverViewLayout({
               <Button>Все заказы</Button>
             </CardFooter>
           </Card>
+          <div className='col-span-8'>{logistic}</div>
           <div className='col-span-4'>{bar_stats}</div>
           <div className='col-span-4'>{area_stats}</div>
           <div className='col-span-4 md:col-span-3'>{pie_stats}</div>

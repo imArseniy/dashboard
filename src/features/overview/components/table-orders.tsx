@@ -7,6 +7,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+
 const products = [
   {
     id: "15223372-1385-1",
@@ -63,6 +64,7 @@ const products = [
     warehouse: "ЕКБ-Главный",
   },
 ];
+
 export default function Orders() {
   return (
     <div className="w-full rounded-md overflow-hidden">
