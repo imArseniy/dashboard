@@ -41,6 +41,7 @@ export default function OverViewLayout({
   area_stats,
   orders,
   logistic,
+  reviews
 }: {
   sales: React.ReactNode;
   sales_stats: React.ReactNode;
@@ -49,6 +50,7 @@ export default function OverViewLayout({
   area_stats: React.ReactNode;
   orders: React.ReactNode;
   logistic: React.ReactNode;
+  reviews: React.ReactNode;
 }) {
   return (
     <PageContainer>
@@ -162,9 +164,7 @@ export default function OverViewLayout({
             </CardFooter>
           </Card>
           <div className='col-span-8'>{logistic}</div>
-          <div className='col-span-4'>{bar_stats}</div>
-          <div className='col-span-4'>{area_stats}</div>
-          <div className='col-span-4 md:col-span-3'>{pie_stats}</div>
+          <div className='col-span-4'>{reviews}</div>
         </div>
       </div>
     </PageContainer>
