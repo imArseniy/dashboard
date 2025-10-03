@@ -15,24 +15,6 @@ import { Button } from "@/components/ui/button"
 import Orders from './@orders/page';
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 
-const logistic = [
-  {
-    id: "1",
-    status: "Ожидает сборки",
-    amount: 6,
-  },
-  {
-    id: "2",
-    status: "Ожидает отгрузки",
-    amount: 2,
-  },
-  {
-    id: "3",
-    status: "Доставляются",
-    amount: 17,
-  },
-];
-
 export default function OverViewLayout({
   sales,
   sales_stats,
@@ -41,7 +23,8 @@ export default function OverViewLayout({
   area_stats,
   orders,
   logistic,
-  reviews
+  reviews,
+  rating,
 }: {
   sales: React.ReactNode;
   sales_stats: React.ReactNode;
@@ -51,6 +34,7 @@ export default function OverViewLayout({
   orders: React.ReactNode;
   logistic: React.ReactNode;
   reviews: React.ReactNode;
+  rating: React.ReactNode;
 }) {
   return (
     <PageContainer>
@@ -165,6 +149,7 @@ export default function OverViewLayout({
           </Card>
           <div className='col-span-8'>{logistic}</div>
           <div className='col-span-4'>{reviews}</div>
+          <div className='col-span-4'>{rating}</div>
         </div>
       </div>
     </PageContainer>
