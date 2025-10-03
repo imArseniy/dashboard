@@ -45,26 +45,25 @@ export default function UserAuthForm() {
 
   return (
     <>
-      <Form
-        form={form}
+      <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className='w-full space-y-2'
+        className="w-full space-y-2"
       >
         <FormInput
           control={form.control}
-          name='email'
-          label='Email'
-          placeholder='Enter your email...'
+          name="email"
+          label="Email"
+          placeholder="Enter your email..."
           disabled={loading}
         />
         <Button
+          type="submit"
           disabled={loading}
-          className='mt-2 ml-auto w-full'
-          type='submit'
+          className="mt-2 ml-auto w-full"
         >
           Continue With Email
         </Button>
-      </Form>
+      </form>
       <div className='relative'>
         <div className='absolute inset-0 flex items-center'>
           <span className='w-full border-t' />
