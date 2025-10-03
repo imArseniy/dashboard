@@ -7,7 +7,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Authentication',
+  title: 'Аутентификация',
   description: 'Authentication forms built using the components.'
 };
 
@@ -38,7 +38,7 @@ export default function SignUpViewPage({ stars }: { stars: number }) {
           >
             <path d='M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3' />
           </svg>
-          Logo
+          Малинки
         </div>
         <div className='relative z-20 mt-auto'>
           <blockquote className='space-y-2'>
@@ -47,7 +47,7 @@ export default function SignUpViewPage({ stars }: { stars: number }) {
               and helped me deliver projects to my clients faster than ever
               before.&rdquo;
             </p>
-            <footer className='text-sm'>Random Dude</footer>
+            <footer className='text-sm'>Малинки</footer>
           </blockquote>
         </div>
       </div>
