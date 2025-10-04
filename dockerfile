@@ -1,7 +1,7 @@
 # ----------- Stage 1: Build -----------
 FROM node:20 AS builder
 
-WORKDIR /dashboard
+WORKDIR /next_app
 
 # Устанавливаем pnpm
 RUN npm install -g pnpm
@@ -33,15 +33,15 @@ RUN pnpm build
 # ----------- Stage 2: Production -----------
 FROM node:20 AS runner
 
-WORKDIR /dashboard
+WORKDIR /next_app
 
 # Копируем файлы из builder stage
-COPY --from=builder /dashboard/package.json ./
-COPY --from=builder /dashboard/pnpm-lock.yaml* ./
-COPY --from=builder /dashboard/node_modules ./node_modules
-COPY --from=builder /dashboard/.next ./.next
-COPY --from=builder /dashboard/public ./public
-COPY --from=builder /dashboard/prisma ./prisma
+COPY --from=builder /next_app/package.json ./
+COPY --from=builder /next_app/pnpm-lock.yaml* ./
+COPY --from=builder /next_app/node_modules ./node_modules
+COPY --from=builder /next_app/.next ./.next
+COPY --from=builder /next_app/public ./public
+COPY --from=builder /next_app/prisma ./prisma
 
 # Устанавливаем pnpm для запуска
 RUN npm install -g pnpm
