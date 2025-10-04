@@ -1,40 +1,28 @@
-# ---------- Stage 1: deps ----------
-FROM node:20 AS deps
+# 1. Базовый образ
+FROM node:20-alpine AS base
+
+# 2. Устанавливаем необходимые пакеты
+RUN apk add --no-cache libc6-compat bash
+
 WORKDIR /app
 
-# Устанавливаем pnpm глобально
+# 3. Устанавливаем pnpm
 RUN npm install -g pnpm
 
-# Копируем package.json и lock-файл
+# 4. Копируем package.json и lockfile
 COPY package.json pnpm-lock.yaml* ./
 
-# Устанавливаем зависимости (без dev — для prod-сборки)
-RUN pnpm install --frozen-lockfile
+# 5. Устанавливаем зависимости (devDeps нужны для ts-node, если будем использовать TS seed)
+RUN pnpm install
 
-# ---------- Stage 2: builder ----------
-FROM node:20 AS builder
-WORKDIR /app
-
-COPY --from=deps /app/node_modules ./node_modules
+# 6. Копируем весь проект
 COPY . .
 
-# Генерируем Prisma Client (важно до билда Next.js)
+# 7. Генерируем Prisma Client
 RUN pnpm prisma generate
 
-# Билдим Next.js
+# 8. Билдим Next.js
 RUN pnpm build
 
-# ---------- Stage 3: runner ----------
-FROM node:20 AS runner
-WORKDIR /app
-ENV NODE_ENV=production
-
-# Добавляем только нужное из builder
-COPY --from=builder /app/package.json ./package.json
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/prisma ./prisma
-
-# Запуск в продакшене
+# 9. Запуск приложения
 CMD ["pnpm", "start"]

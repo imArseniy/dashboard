@@ -17,7 +17,7 @@ services:
       - app_network
 
   web:
-    build: 
+    build:
       context: .
       dockerfile: Dockerfile
     container_name: next_app
@@ -25,14 +25,11 @@ services:
     ports:
       - "3000:3000"
     environment:
-      NODE_ENV: development
+      NODE_ENV: production
       DATABASE_URL: postgres://postgres:postgres@db:5432/mydb
       NEXT_PUBLIC_CLERK_FRONTEND_API: ${NEXT_PUBLIC_CLERK_FRONTEND_API}
       CLERK_API_KEY: ${CLERK_API_KEY}
       SENTRY_AUTH_TOKEN: ${SENTRY_AUTH_TOKEN}
-    volumes:
-      - .:/app
-      - /app/node_modules
     depends_on:
       - db
     networks:
