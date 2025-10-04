@@ -1,7 +1,9 @@
 version: '3.9'
+
 services:
   db:
     image: postgres:15
+    container_name: postgres_db
     restart: always
     environment:
       POSTGRES_USER: postgres
@@ -11,6 +13,34 @@ services:
       - "5432:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
+    networks:
+      - app_network
+
+  web:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: next_app
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: postgres://postgres:postgres@db:5432/mydb
+      NEXT_PUBLIC_CLERK_FRONTEND_API: ${NEXT_PUBLIC_CLERK_FRONTEND_API}
+      CLERK_API_KEY: ${CLERK_API_KEY}
+      SENTRY_AUTH_TOKEN: ${SENTRY_AUTH_TOKEN}
+    volumes:
+      - .:/app
+      - /app/node_modules
+    depends_on:
+      - db
+    networks:
+      - app_network
 
 volumes:
   db_data:
+
+networks:
+  app_network:
+    driver: bridge

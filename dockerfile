@@ -1,39 +1,25 @@
-# Этап 1: билд
-FROM node:20-alpine AS builder
+# Используем Node.js 20 (Alpine для лёгкости)
+FROM node:20-alpine AS base
 
-# Рабочая директория
+# Устанавливаем зависимости для билда
+RUN apk add --no-cache libc6-compat bash
+
 WORKDIR /app
 
-# Установим зависимости
-COPY package*.json ./
-COPY pnpm-lock.yaml* ./
-RUN corepack enable && corepack prepare pnpm@latest --activate
+# Устанавливаем pnpm
+RUN npm install -g pnpm
+
+# Копируем package.json и lockfile
+COPY package.json pnpm-lock.yaml* ./
+
+# Устанавливаем зависимости
 RUN pnpm install --frozen-lockfile
 
-# Скопировать исходники
+# Копируем исходный код
 COPY . .
 
-# Сборка Next.js (production build)
+# Билдим проект
 RUN pnpm build
 
-# Этап 2: production
-FROM node:20-alpine AS runner
-
-WORKDIR /app
-
-ENV NODE_ENV=production
-
-# Добавляем только нужное из билдера
-COPY --from=builder /app/package*.json ./
-COPY --from=builder /app/pnpm-lock.yaml ./
-RUN corepack enable && corepack prepare pnpm@latest --activate
-RUN pnpm install --prod --frozen-lockfile
-
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/next.config.js ./
-
-EXPOSE 3000
-
-# Запуск приложения
+# Запуск production версии
 CMD ["pnpm", "start"]
