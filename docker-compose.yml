@@ -20,6 +20,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_CLERK_FRONTEND_API: ${NEXT_PUBLIC_CLERK_FRONTEND_API}
+        CLERK_API_KEY: ${CLERK_API_KEY}
+        SENTRY_AUTH_TOKEN: ${SENTRY_AUTH_TOKEN}
     container_name: next_app
     restart: always
     ports:
@@ -30,6 +34,8 @@ services:
       NEXT_PUBLIC_CLERK_FRONTEND_API: ${NEXT_PUBLIC_CLERK_FRONTEND_API}
       CLERK_API_KEY: ${CLERK_API_KEY}
       SENTRY_AUTH_TOKEN: ${SENTRY_AUTH_TOKEN}
+      HOST: 0.0.0.0
+      PORT: 3000
     depends_on:
       - db
     networks:
