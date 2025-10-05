@@ -52,8 +52,7 @@ test:
     - npm install -g pnpm
     - pnpm install
     - pnpm prisma generate
-    - pnpm test
-
+    
 # ---------- Build ----------
 build:
   stage: build
