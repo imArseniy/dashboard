@@ -56,26 +56,24 @@ test:
 # ---------- Build ----------
 build:
   stage: build
-  image: docker:24.0.7
+  image: docker:24.0.5 # можно любой свежий docker:dind-compatible
   services:
-    - docker:24.0.7-dind
+    - docker:dind
 
   variables:
     DOCKER_DRIVER: overlay2
     DOCKER_BUILDKIT: 1
 
   script:
-    - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" "$CI_REGISTRY" --password-stdin
-
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
     - docker buildx create --use
     - docker buildx build \
         --platform linux/amd64 \
         --build-arg NEXT_PUBLIC_CLERK_FRONTEND_API=$NEXT_PUBLIC_CLERK_FRONTEND_API \
         --build-arg CLERK_API_KEY=$CLERK_API_KEY \
         --build-arg SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN \
-        -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA \
-        -t $CI_REGISTRY_IMAGE:latest \
-        --push .
+        -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA .
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
 
 
 # ---------- Migrate ----------
