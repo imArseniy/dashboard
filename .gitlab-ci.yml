@@ -1,20 +1,105 @@
-stages:          # List of stages for jobs, and their order of execution
-  - build
+stages:
+  - install
+  - lint
   - test
+  - build
+  - migrate
   - deploy
 
-build-job:       # This job runs in the build stage, which runs first.
+variables:
+  NODE_ENV: production
+  DATABASE_URL: postgres://postgres:postgres@db:5432/mydb
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
+    - .pnpm-store
+
+# ---------- Install ----------
+install:
+  stage: install
+  image: node:20-alpine
+  script:
+    - npm install -g pnpm
+    - pnpm install --frozen-lockfile
+  artifacts:
+    paths:
+      - node_modules/
+    expire_in: 1h
+
+# ---------- Lint ----------
+lint:
+  stage: lint
+  image: node:20-alpine
+  script:
+    - npm install -g pnpm
+    - pnpm install
+    - pnpm lint
+
+# ---------- Test ----------
+test:
+  stage: test
+  image: node:20-alpine
+  services:
+    - postgres:15
+  variables:
+    POSTGRES_USER: postgres
+    POSTGRES_PASSWORD: postgres
+    POSTGRES_DB: testdb
+    DATABASE_URL: postgres://postgres:postgres@postgres:5432/testdb
+  script:
+    - npm install -g pnpm
+    - pnpm install
+    - pnpm prisma generate
+    - pnpm test
+
+# ---------- Build ----------
+build:
   stage: build
+  image: docker:latest
+  services:
+    - docker:dind
   script:
-    - docker build -t my-backend-image .
+    - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
+    - docker build \
+        --build-arg NEXT_PUBLIC_CLERK_FRONTEND_API=$NEXT_PUBLIC_CLERK_FRONTEND_API \
+        --build-arg CLERK_API_KEY=$CLERK_API_KEY \
+        --build-arg SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN \
+        -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA .
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+    - docker tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA $CI_REGISTRY_IMAGE:latest
+    - docker push $CI_REGISTRY_IMAGE:latest
+  artifacts:
+    expire_in: 1h
 
-test-job:
-    stage: test
-    script:
-      - docker run --rm my-backend-image -s - v
+# ---------- Migrate ----------
+migrate:
+  stage: migrate
+  image: node:20-alpine
+  services:
+    - postgres:15
+  script:
+    - npm install -g pnpm
+    - pnpm install
+    - pnpm prisma migrate deploy
 
-deploy-job:
+# ---------- Deploy ----------
+deploy:
   stage: deploy
+  image: alpine:latest
+  before_script:
+    - apk add --no-cache openssh-client
   script:
-    - docker compose up -d
-
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan -H $DEPLOY_SERVER_HOST >> ~/.ssh/known_hosts
+    - ssh $DEPLOY_USER@$DEPLOY_SERVER_HOST "
+        cd $DEPLOY_PATH &&
+        docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY &&
+        docker-compose pull web &&
+        docker-compose up -d web
+      "
+  only:
+    - main
