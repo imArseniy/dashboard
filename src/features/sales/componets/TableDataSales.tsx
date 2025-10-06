@@ -43,6 +43,8 @@ import {
   TableRow
 } from '@/components/ui/table';
 
+import { ChartRevenue } from './mainchart';
+
 export type Sale = {
   id: string;
   customer_id: string;
@@ -182,7 +184,7 @@ export default function TableDataSales() {
       <h1 className='mb-2 scroll-m-20 text-2xl font-semibold tracking-tight'>
         Справочник продаж
       </h1>
-
+      <ChartRevenue></ChartRevenue>
       <div className='flex items-center gap-2 py-4'>
         <Input
           placeholder='Поиск по методу оплаты...'
