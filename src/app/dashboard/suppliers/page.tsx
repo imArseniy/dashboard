@@ -1,9 +1,9 @@
-import KanbanViewPage from '@/features/kanban/components/kanban-view-page';
+import TableDataSuppliers from '@/features/suppliers/componets/TableDataSuppliers';
 
 export const metadata = {
   title: 'Dashboard : Kanban view'
 };
 
 export default function page() {
-  return <KanbanViewPage />;
+  return <TableDataSuppliers />;
 }

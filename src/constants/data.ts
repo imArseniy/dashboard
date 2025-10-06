@@ -55,7 +55,7 @@ export const navItems: NavItem[] = [
   },
   {
     title: 'Реклама',
-    url: '/dashboard/ad_revenue',
+    url: '/dashboard/ad-revenue',
     icon: 'kanban',
     shortcut: ['k', 'k'],
     isActive: false,

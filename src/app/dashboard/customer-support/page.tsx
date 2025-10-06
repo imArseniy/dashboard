@@ -1,9 +1,9 @@
-import KanbanViewPage from '@/features/kanban/components/kanban-view-page';
+import DataTableCustomerSupport from '@/features/customer-support/componets/table';
 
 export const metadata = {
   title: 'Dashboard : Kanban view'
 };
 
 export default function page() {
-  return <KanbanViewPage />;
+  return <DataTableCustomerSupport />;
 }
