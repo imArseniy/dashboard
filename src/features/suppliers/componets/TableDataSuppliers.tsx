@@ -50,6 +50,14 @@ export type Payment = {
   rating: string;
 };
 
+// Словарь английских -> русские регионы
+const regionMap: Record<string, string> = {
+  Moscow: 'Москва',
+  SPB: 'Санкт-Петербург',
+  Ekaterinburg: 'Екатеринбург',
+  Kazan: 'Казань'
+};
+
 export const columns: ColumnDef<Payment>[] = [
   {
     id: 'select',
@@ -75,8 +83,15 @@ export const columns: ColumnDef<Payment>[] = [
   },
   {
     accessorKey: 'id',
-    header: 'ID поставщика',
-    cell: ({ row }) => <div>{row.getValue('id')}</div>
+    header: ({ column }) => (
+      <Button
+        variant='ghost'
+        onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+      >
+        ID
+        <ArrowUpDown />
+      </Button>
+    )
   },
   {
     accessorKey: 'name',
@@ -93,12 +108,37 @@ export const columns: ColumnDef<Payment>[] = [
   },
   {
     accessorKey: 'region',
-    header: 'Регион',
-    cell: ({ row }) => <div>{row.getValue('region')}</div>
+    header: ({ column }) => (
+      <Button
+        variant='ghost'
+        onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+      >
+        Регион
+        <ArrowUpDown />
+      </Button>
+    ),
+    cell: ({ row }) => {
+      const raw = row.getValue('region') as string;
+      return <div>{regionMap[raw] ?? raw}</div>;
+    },
+    // Кастомная фильтрация по русским названиям
+    filterFn: (row, id, filterValue) => {
+      const raw = row.getValue(id) as string;
+      const russian = regionMap[raw] ?? raw;
+      return russian.toLowerCase().includes(filterValue.toLowerCase());
+    }
   },
   {
     accessorKey: 'rating',
-    header: 'Рейтинг',
+    header: ({ column }) => (
+      <Button
+        variant='ghost'
+        onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+      >
+        Рейтинг
+        <ArrowUpDown />
+      </Button>
+    ),
     cell: ({ row }) => <div>{row.getValue('rating')}</div>
   },
   {
@@ -108,16 +148,16 @@ export const columns: ColumnDef<Payment>[] = [
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant='ghost' className='h-8 w-8 p-0'>
-            <span className='sr-only'>Open menu</span>
+            <span className='sr-only'>Открыть</span>
             <MoreHorizontal />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
-          <DropdownMenuLabel>Actions</DropdownMenuLabel>
+          <DropdownMenuLabel>Действия</DropdownMenuLabel>
           <DropdownMenuItem
             onClick={() => navigator.clipboard.writeText(row.original.id)}
           >
-            Copy supplier ID
+            Копировать ID
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
@@ -182,11 +222,16 @@ export default function TableDataSuppliers() {
 
       <div className='flex items-center gap-2 py-4'>
         <Input
-          placeholder='Поиск по названию...'
-          value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}
-          onChange={(event) =>
-            table.getColumn('name')?.setFilterValue(event.target.value)
-          }
+          placeholder='Поиск по названию или региону...'
+          value={searchQuery}
+          onChange={(event) => {
+            const value = event.target.value;
+            setSearchQuery(value);
+            // фильтруем по названию
+            table.getColumn('name')?.setFilterValue(value);
+            // фильтруем по региону
+            table.getColumn('region')?.setFilterValue(value);
+          }}
           className='max-w-sm'
         />
         <DropdownMenu>

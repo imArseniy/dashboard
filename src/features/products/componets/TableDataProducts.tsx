@@ -51,6 +51,15 @@ export type Product = {
   supplier_id: string;
 };
 
+// Словарь категорий английский -> русский
+const categoryMap: Record<string, string> = {
+  Beauty: 'Красота',
+  Clothes: 'Одежда',
+  Food: 'Продукты',
+  Electronics: 'Электрони',
+  Home: 'Товары для дома'
+};
+
 export const columns: ColumnDef<Product>[] = [
   {
     id: 'select',
@@ -76,7 +85,15 @@ export const columns: ColumnDef<Product>[] = [
   },
   {
     accessorKey: 'id',
-    header: 'ID продукта',
+    header: ({ column }) => (
+      <Button
+        variant='ghost'
+        onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+      >
+        ID
+        <ArrowUpDown />
+      </Button>
+    ),
     cell: ({ row }) => <div>{row.getValue('id')}</div>
   },
   {
@@ -94,17 +111,58 @@ export const columns: ColumnDef<Product>[] = [
   },
   {
     accessorKey: 'category',
-    header: 'Категория',
-    cell: ({ row }) => <div>{row.getValue('category')}</div>
+    header: ({ column }) => (
+      <Button
+        variant='ghost'
+        onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+      >
+        Категория
+        <ArrowUpDown />
+      </Button>
+    ),
+    cell: ({ row }) => {
+      const raw = row.getValue('category') as string;
+      return <div>{categoryMap[raw] ?? raw}</div>;
+    },
+    // кастомная фильтрация по русским категориям
+    filterFn: (row, id, filterValue) => {
+      const raw = row.getValue(id) as string;
+      const russian = categoryMap[raw] ?? raw;
+      return russian.toLowerCase().includes(filterValue.toLowerCase());
+    }
   },
   {
     accessorKey: 'price',
-    header: 'Цена',
-    cell: ({ row }) => <div>{row.getValue('price')}</div>
+    header: ({ column }) => (
+      <Button
+        variant='ghost'
+        onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+      >
+        Цена
+        <ArrowUpDown />
+      </Button>
+    ),
+    cell: ({ row }) => {
+      const value = Number(row.getValue('price'));
+      // форматируем в рубли с разделением тысяч и запятой
+      const formatted = new Intl.NumberFormat('ru-RU', {
+        style: 'currency',
+        currency: 'RUB'
+      }).format(value);
+      return <div>{formatted}</div>;
+    }
   },
   {
     accessorKey: 'supplier_id',
-    header: 'ID поставщика',
+    header: ({ column }) => (
+      <Button
+        variant='ghost'
+        onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+      >
+        ID поставщика
+        <ArrowUpDown />
+      </Button>
+    ),
     cell: ({ row }) => <div>{row.getValue('supplier_id')}</div>
   },
   {
@@ -114,16 +172,16 @@ export const columns: ColumnDef<Product>[] = [
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant='ghost' className='h-8 w-8 p-0'>
-            <span className='sr-only'>Open menu</span>
+            <span className='sr-only'>Открыть</span>
             <MoreHorizontal />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
-          <DropdownMenuLabel>Actions</DropdownMenuLabel>
+          <DropdownMenuLabel>Действия</DropdownMenuLabel>
           <DropdownMenuItem
             onClick={() => navigator.clipboard.writeText(row.original.id)}
           >
-            Copy product ID
+            Копировать ID
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
@@ -143,7 +201,6 @@ export default function TableDataProducts() {
   const [rowSelection, setRowSelection] = React.useState({});
   const [searchQuery, setSearchQuery] = React.useState<string>('');
 
-  // Подгружаем данные с API
   React.useEffect(() => {
     async function fetchData() {
       try {
@@ -151,7 +208,7 @@ export default function TableDataProducts() {
         const json: Product[] = await res.json();
         setData(json);
       } catch (error) {
-        console.error('Ошибка при загрузке продуктов:', error);
+        console.error('Ошибка при загрузке товаров:', error);
       } finally {
         setLoading(false);
       }
@@ -170,29 +227,27 @@ export default function TableDataProducts() {
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
-    state: {
-      sorting,
-      columnFilters,
-      columnVisibility,
-      rowSelection
-    }
+    state: { sorting, columnFilters, columnVisibility, rowSelection }
   });
 
-  if (loading) return <div>Загрузка продуктов...</div>;
+  if (loading) return <div>Загрузка товаров...</div>;
 
   return (
     <div className='w-full p-6'>
       <h1 className='mb-2 scroll-m-20 text-2xl font-semibold tracking-tight'>
-        Справочник продуктов
+        Справочник товаров
       </h1>
 
       <div className='flex items-center gap-2 py-4'>
         <Input
-          placeholder='Поиск по названию...'
-          value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}
-          onChange={(event) =>
-            table.getColumn('name')?.setFilterValue(event.target.value)
-          }
+          placeholder='Поиск по названию или категории...'
+          value={searchQuery}
+          onChange={(event) => {
+            const value = event.target.value;
+            setSearchQuery(value);
+            table.getColumn('name')?.setFilterValue(value);
+            table.getColumn('category')?.setFilterValue(value);
+          }}
           className='max-w-sm'
         />
         <DropdownMenu>
