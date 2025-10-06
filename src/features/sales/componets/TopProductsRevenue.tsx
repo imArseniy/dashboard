@@ -73,7 +73,7 @@ export function TopProductsRevenueChart() {
           startDate.setFullYear(startDate.getFullYear() - 1);
         } else if (timeRange === 'month') {
           startDate = new Date(now);
-          startDate.setMonth(startDate.getMonth() - 1);
+          startDate.setMonth(startDate.getMonth() + 2);
         }
 
         const revenueMap = new Map<string, number>();

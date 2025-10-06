@@ -89,7 +89,7 @@ export function ChartPieRevenueByCategory() {
           startDate.setFullYear(startDate.getFullYear() - 1);
         } else if (timeRange === 'month') {
           startDate = new Date(now);
-          startDate.setMonth(startDate.getMonth() - 1);
+          startDate.setMonth(startDate.getMonth() + 2);
         }
 
         const categoryMap = new Map<string, number>();

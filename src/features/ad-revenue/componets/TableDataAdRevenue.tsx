@@ -42,6 +42,8 @@ import {
   TableHeader,
   TableRow
 } from '@/components/ui/table';
+import { AdPerformanceChart } from './StackedBarChart';
+import { ChartLineConversion } from './ChartLineConversion';
 
 export type AdRevenue = {
   id: string;
@@ -202,7 +204,8 @@ export default function TableDataAdRevenue() {
       <h1 className='mb-2 scroll-m-20 text-2xl font-semibold tracking-tight'>
         Справочник рекламных кампаний
       </h1>
-
+      <AdPerformanceChart></AdPerformanceChart>
+      <ChartLineConversion></ChartLineConversion>
       <div className='flex items-center gap-2 py-4'>
         <Input
           placeholder='Поиск по кампании...'
