@@ -1,4 +1,4 @@
-import DataTableCustomerSupport from '@/features/customer-support/componets/table';
+import DataTableCustomerSupport from '@/features/customer-support/componets/TableDataCustomerSupport';
 
 export const metadata = {
   title: 'Dashboard : Kanban view'

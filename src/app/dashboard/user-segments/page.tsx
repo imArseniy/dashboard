@@ -1,9 +1,9 @@
-import KanbanViewPage from '@/features/kanban/components/kanban-view-page';
+import TableDataUserSegments from '@/features/user-segments/componets/TableDataUserSegments';
 
 export const metadata = {
   title: 'Dashboard : Kanban view'
 };
 
 export default function page() {
-  return <KanbanViewPage />;
+  return <TableDataUserSegments />;
 }

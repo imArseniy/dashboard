@@ -43,47 +43,15 @@ import {
   TableRow
 } from '@/components/ui/table';
 
-const data: Payment[] = [
-  {
-    id: 'm5gr84i9',
-    name: 'ken99@yahoo.com',
-    region: 'Свердловская область',
-    raiting: '4.8'
-  },
-  {
-    id: '3u1reuv4',
-    name: 'Abe45@gmail.com',
-    region: 'Свердловская область',
-    raiting: '4.9'
-  },
-  {
-    id: 'derv1ws0',
-    name: 'Monserrat44@gmail.com',
-    region: 'Свердловская область',
-    raiting: '4.4'
-  },
-  {
-    id: '5kma53ae',
-    name: 'Silas22@gmail.com',
-    region: 'Свердловская область',
-    raiting: '4.8'
-  },
-  {
-    id: 'bhqecj4p',
-    name: 'carmella@hotmail.com',
-    region: 'Свердловская область',
-    raiting: '4.7'
-  }
-];
-
-export type Payment = {
+export type Product = {
   id: string;
   name: string;
-  region: string;
-  raiting: string;
+  category: string;
+  price: string;
+  supplier_id: string;
 };
 
-export const columns: ColumnDef<Payment>[] = [
+export const columns: ColumnDef<Product>[] = [
   {
     id: 'select',
     header: ({ table }) => (
@@ -108,67 +76,64 @@ export const columns: ColumnDef<Payment>[] = [
   },
   {
     accessorKey: 'id',
-    header: 'ID поставщика',
-    cell: ({ row }) => <div className=''>{row.getValue('id')}</div>
+    header: 'ID продукта',
+    cell: ({ row }) => <div>{row.getValue('id')}</div>
   },
   {
     accessorKey: 'name',
-    header: ({ column }) => {
-      return (
-        <Button
-          variant='ghost'
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-        >
-          Название
-          <ArrowUpDown />
-        </Button>
-      );
-    },
+    header: ({ column }) => (
+      <Button
+        variant='ghost'
+        onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+      >
+        Название
+        <ArrowUpDown />
+      </Button>
+    ),
     cell: ({ row }) => <div>{row.getValue('name')}</div>
   },
   {
-    accessorKey: 'region',
-    header: 'Регион',
-    cell: ({ row }) => <div className=''>{row.getValue('region')}</div>
+    accessorKey: 'category',
+    header: 'Категория',
+    cell: ({ row }) => <div>{row.getValue('category')}</div>
   },
   {
-    accessorKey: 'raiting',
-    header: 'Рейтинг',
-    cell: ({ row }) => <div className=''>{row.getValue('raiting')}</div>
+    accessorKey: 'price',
+    header: 'Цена',
+    cell: ({ row }) => <div>{row.getValue('price')}</div>
+  },
+  {
+    accessorKey: 'supplier_id',
+    header: 'ID поставщика',
+    cell: ({ row }) => <div>{row.getValue('supplier_id')}</div>
   },
   {
     id: 'actions',
     enableHiding: false,
-    cell: ({ row }) => {
-      const payment = row.original;
-
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant='ghost' className='h-8 w-8 p-0'>
-              <span className='sr-only'>Open menu</span>
-              <MoreHorizontal />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align='end'>
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}
-            >
-              Copy payment ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
-    }
+    cell: ({ row }) => (
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant='ghost' className='h-8 w-8 p-0'>
+            <span className='sr-only'>Open menu</span>
+            <MoreHorizontal />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align='end'>
+          <DropdownMenuLabel>Actions</DropdownMenuLabel>
+          <DropdownMenuItem
+            onClick={() => navigator.clipboard.writeText(row.original.id)}
+          >
+            Copy product ID
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    )
   }
 ];
 
-export default function DataTableCustomerSupport() {
-  const [searchQuery, setSearchQuery] = React.useState<string>();
+export default function TableDataProducts() {
+  const [data, setData] = React.useState<Product[]>([]);
+  const [loading, setLoading] = React.useState(true);
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -176,6 +141,23 @@ export default function DataTableCustomerSupport() {
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
+  const [searchQuery, setSearchQuery] = React.useState<string>('');
+
+  // Подгружаем данные с API
+  React.useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await fetch('/api/products');
+        const json: Product[] = await res.json();
+        setData(json);
+      } catch (error) {
+        console.error('Ошибка при загрузке продуктов:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchData();
+  }, []);
 
   const table = useReactTable({
     data,
@@ -196,11 +178,14 @@ export default function DataTableCustomerSupport() {
     }
   });
 
+  if (loading) return <div>Загрузка продуктов...</div>;
+
   return (
     <div className='w-full p-6'>
       <h1 className='mb-2 scroll-m-20 text-2xl font-semibold tracking-tight'>
-        Поддержка пользователей
+        Справочник продуктов
       </h1>
+
       <div className='flex items-center gap-2 py-4'>
         <Input
           placeholder='Поиск по названию...'
@@ -235,9 +220,8 @@ export default function DataTableCustomerSupport() {
                 if (
                   searchQuery &&
                   !column.id.toLowerCase().includes(searchQuery.toLowerCase())
-                ) {
+                )
                   return null;
-                }
 
                 return (
                   <DropdownMenuCheckboxItem
@@ -265,28 +249,27 @@ export default function DataTableCustomerSupport() {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
+
       <div className='rounded-md border'>
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <TableHead key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                    </TableHead>
-                  );
-                })}
+                {headerGroup.headers.map((header) => (
+                  <TableHead key={header.id}>
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                  </TableHead>
+                ))}
               </TableRow>
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows?.length ? (
+            {table.getRowModel().rows.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
@@ -315,6 +298,7 @@ export default function DataTableCustomerSupport() {
           </TableBody>
         </Table>
       </div>
+
       <div className='flex items-center justify-end space-x-2 py-4'>
         <div className='text-muted-foreground flex-1 text-sm'>
           {table.getFilteredSelectedRowModel().rows.length} из{' '}
