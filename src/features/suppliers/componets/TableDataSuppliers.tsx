@@ -1,6 +1,5 @@
 'use client';
 
-import * as React from 'react';
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -21,6 +20,7 @@ import {
   RefreshCcw,
   SearchIcon
 } from 'lucide-react';
+import * as React from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -43,14 +43,14 @@ import {
   TableRow
 } from '@/components/ui/table';
 
-export type Supplier = {
+export type Payment = {
   id: string;
   name: string;
   region: string;
   rating: string;
 };
 
-export const columns: ColumnDef<Supplier>[] = [
+export const columns: ColumnDef<Payment>[] = [
   {
     id: 'select',
     header: ({ table }) => (
@@ -67,7 +67,7 @@ export const columns: ColumnDef<Supplier>[] = [
       <Checkbox
         checked={row.getIsSelected()}
         onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label='Выбрать строку'
+        aria-label='Выбрать колонку'
       />
     ),
     enableSorting: false,
@@ -104,35 +104,30 @@ export const columns: ColumnDef<Supplier>[] = [
   {
     id: 'actions',
     enableHiding: false,
-    cell: ({ row }) => {
-      const supplier = row.original;
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant='ghost' className='h-8 w-8 p-0'>
-              <MoreHorizontal />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align='end'>
-            <DropdownMenuLabel>Действия</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(supplier.id)}
-            >
-              Копировать ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Подробнее</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
-    }
+    cell: ({ row }) => (
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant='ghost' className='h-8 w-8 p-0'>
+            <span className='sr-only'>Open menu</span>
+            <MoreHorizontal />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align='end'>
+          <DropdownMenuLabel>Actions</DropdownMenuLabel>
+          <DropdownMenuItem
+            onClick={() => navigator.clipboard.writeText(row.original.id)}
+          >
+            Copy supplier ID
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    )
   }
 ];
 
 export default function TableDataSuppliers() {
-  const [data, setData] = React.useState<Supplier[]>([]);
+  const [data, setData] = React.useState<Payment[]>([]);
   const [loading, setLoading] = React.useState(true);
-  const [searchQuery, setSearchQuery] = React.useState<string>();
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -140,15 +135,22 @@ export default function TableDataSuppliers() {
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
+  const [searchQuery, setSearchQuery] = React.useState<string>('');
 
-  // Загружаем данные из API
+  // Загружаем данные с API
   React.useEffect(() => {
-    setLoading(true);
-    fetch('/api/suppliers')
-      .then((res) => res.json())
-      .then((json) => setData(json))
-      .catch((err) => console.error('Ошибка загрузки:', err))
-      .finally(() => setLoading(false));
+    async function fetchData() {
+      try {
+        const res = await fetch('/api/suppliers');
+        const json: Payment[] = await res.json();
+        setData(json);
+      } catch (error) {
+        console.error('Ошибка при загрузке поставщиков:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchData();
   }, []);
 
   const table = useReactTable({
@@ -170,11 +172,14 @@ export default function TableDataSuppliers() {
     }
   });
 
+  if (loading) return <div>Загрузка поставщиков...</div>;
+
   return (
     <div className='w-full p-6'>
       <h1 className='mb-2 scroll-m-20 text-2xl font-semibold tracking-tight'>
         Справочник поставщиков
       </h1>
+
       <div className='flex items-center gap-2 py-4'>
         <Input
           placeholder='Поиск по названию...'
@@ -209,9 +214,9 @@ export default function TableDataSuppliers() {
                 if (
                   searchQuery &&
                   !column.id.toLowerCase().includes(searchQuery.toLowerCase())
-                ) {
+                )
                   return null;
-                }
+
                 return (
                   <DropdownMenuCheckboxItem
                     key={column.id}
@@ -258,16 +263,7 @@ export default function TableDataSuppliers() {
             ))}
           </TableHeader>
           <TableBody>
-            {loading ? (
-              <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className='h-24 text-center'
-                >
-                  Загрузка...
-                </TableCell>
-              </TableRow>
-            ) : table.getRowModel().rows?.length ? (
+            {table.getRowModel().rows.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
@@ -295,6 +291,31 @@ export default function TableDataSuppliers() {
             )}
           </TableBody>
         </Table>
+      </div>
+
+      <div className='flex items-center justify-end space-x-2 py-4'>
+        <div className='text-muted-foreground flex-1 text-sm'>
+          {table.getFilteredSelectedRowModel().rows.length} из{' '}
+          {table.getFilteredRowModel().rows.length} строк выбрано.
+        </div>
+        <div className='space-x-2'>
+          <Button
+            variant='outline'
+            size='sm'
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            Предыдущая
+          </Button>
+          <Button
+            variant='outline'
+            size='sm'
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            Следующая
+          </Button>
+        </div>
       </div>
     </div>
   );
