@@ -22,6 +22,79 @@ export const navItems: NavItem[] = [
     items: [] // Empty array as there are no child items for Dashboard
   },
   {
+    title: 'Поставщики',
+    url: '/dashboard/suppliers',
+    icon: 'kanban',
+    shortcut: ['k', 'k'],
+    isActive: false,
+    items: [] // No child items
+  },
+  {
+    title: 'Товары',
+    url: '/dashboard/products',
+    icon: 'kanban',
+    shortcut: ['k', 'k'],
+    isActive: false,
+    items: [] // No child items
+  },
+  {
+    title: 'Сегменты пользователей',
+    url: '/dashboard/user-segments',
+    icon: 'kanban',
+    shortcut: ['k', 'k'],
+    isActive: false,
+    items: [] // No child items
+  },
+  {
+    title: 'Продажи',
+    url: '/dashboard/sales',
+    icon: 'kanban',
+    shortcut: ['k', 'k'],
+    isActive: false,
+    items: [] // No child items
+  },
+  {
+    title: 'Реклама',
+    url: '/dashboard/ad_revenue',
+    icon: 'kanban',
+    shortcut: ['k', 'k'],
+    isActive: false,
+    items: [] // No child items
+  },
+  {
+    title: 'Возвраты',
+    url: '/dashboard/returns',
+    icon: 'kanban',
+    shortcut: ['k', 'k'],
+    isActive: false,
+    items: [] // No child items
+  },
+  {
+    title: 'Источники рекламы',
+    url: '/dashboard/traffic',
+    icon: 'kanban',
+    shortcut: ['k', 'k'],
+    isActive: false,
+    items: [] // No child items
+  },
+  {
+    title: 'Остатки на складе',
+    url: '/dashboard/inventory',
+    icon: 'kanban',
+    shortcut: ['k', 'k'],
+    isActive: false,
+    items: [] // No child items
+  },
+  {
+    title: 'Поддержка клиентов',
+    url: '/dashboard/customer-support',
+    icon: 'kanban',
+    shortcut: ['k', 'k'],
+    isActive: false,
+    items: [] // No child items
+  },
+
+  {
     title: 'Аккаунт',
     url: '#', // Placeholder as there is no direct link for the parent
     icon: 'billing',
@@ -41,14 +114,6 @@ export const navItems: NavItem[] = [
         icon: 'login'
       }
     ]
-  },
-  {
-    title: 'Канбан',
-    url: '/dashboard/kanban',
-    icon: 'kanban',
-    shortcut: ['k', 'k'],
-    isActive: false,
-    items: [] // No child items
   }
 ];
 
