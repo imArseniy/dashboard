@@ -179,10 +179,6 @@ export default function TableDataInventory() {
 
   return (
     <div className='w-full p-6'>
-      <h1 className='mb-2 scroll-m-20 text-2xl font-semibold tracking-tight'>
-        Справочник запасов
-      </h1>
-
       <div className='flex items-center gap-2 py-4'>
         <Input
           placeholder='Поиск по ID продукта...'
