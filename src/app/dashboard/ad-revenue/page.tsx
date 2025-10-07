@@ -1,6 +1,10 @@
 import PageContainer from '@/components/layout/page-container';
+import { AdRevenueChart } from '@/features/ad-revenue/componets/AdRevenueChart';
+import { AdSpendChart } from '@/features/ad-revenue/componets/AdSpendChart';
 import { ChartLineConversion } from '@/features/ad-revenue/componets/ChartLineConversion';
 import { AdPerformanceChart } from '@/features/ad-revenue/componets/StackedBarChart';
+import { DevicePieChart } from '@/features/ad-revenue/componets/TrafficDevicePieChart';
+import { TrafficPieChart } from '@/features/ad-revenue/componets/TrafficPieChart';
 import { ChartRevenue } from '@/features/sales/componets/mainchart';
 
 export const metadata = {
@@ -17,10 +21,14 @@ export default function page() {
           </h1>
         </div>
 
-        <div className='w-full flex-row gap-3'>
-          <AdPerformanceChart></AdPerformanceChart>
-          <ChartLineConversion></ChartLineConversion>
+        <AdPerformanceChart></AdPerformanceChart>
+        <div className='flex w-full gap-3'>
+          <TrafficPieChart></TrafficPieChart>
+          <DevicePieChart></DevicePieChart>
         </div>
+        <ChartLineConversion></ChartLineConversion>
+        <AdSpendChart></AdSpendChart>
+        <AdRevenueChart></AdRevenueChart>
       </div>
     </PageContainer>
   );
