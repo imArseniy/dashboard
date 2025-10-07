@@ -107,7 +107,7 @@ export function ChartLineConversion() {
   if (loading) return <div>Загрузка графика...</div>;
 
   return (
-    <Card>
+    <Card className='w-full'>
       <CardHeader className='flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between'>
         <div>
           <CardTitle>Конверсия рекламы</CardTitle>

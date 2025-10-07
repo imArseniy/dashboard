@@ -1,6 +1,7 @@
 import PageContainer from '@/components/layout/page-container';
 import { ChartPieCategories } from '@/features/sales/componets/CategoriesQuantity';
 import { ChartPieRevenueByCategory } from '@/features/sales/componets/CategoriesRevenue';
+import { ChartSales } from '@/features/sales/componets/chartquanity';
 import { ChartRevenue } from '@/features/sales/componets/mainchart';
 import { TopCustomersBar } from '@/features/sales/componets/topcustomer';
 import { TopProductsChart } from '@/features/sales/componets/TopProductsQuantity';
@@ -23,16 +24,17 @@ export default function page() {
         <div className='w-full'>
           <ChartRevenue></ChartRevenue>
         </div>
-        <div className='w-ful flex flex-row gap-3'>
+        <div className='flex w-full flex-row gap-3'>
           <TopProductsRevenueChart></TopProductsRevenueChart>
           <TopProductsChart></TopProductsChart>
         </div>
-        <div className='w-ful flex flex-row gap-3'>
+        <div className='flex w-full flex-row gap-3'>
           <ChartPieRevenueByCategory></ChartPieRevenueByCategory>
           <ChartPieCategories></ChartPieCategories>
         </div>
-        <div className='w-ful flex flex-row gap-3'>
+        <div className='flex w-full flex-row gap-3'>
           <TopCustomersBar></TopCustomersBar>
+          <ChartSales></ChartSales>
         </div>
       </div>
     </PageContainer>

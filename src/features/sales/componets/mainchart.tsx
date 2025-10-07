@@ -13,8 +13,6 @@ import {
 import {
   ChartConfig,
   ChartContainer,
-  ChartLegend,
-  ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent
 } from '@/components/ui/chart';
@@ -25,6 +23,7 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select';
+import { TrendingUp, TrendingDown } from 'lucide-react';
 
 type Sale = {
   id: string;
@@ -44,9 +43,9 @@ type Product = {
 };
 
 type ChartPoint = {
-  month: string;
+  label: string;
   revenue: number;
-  sortKey: number;
+  dateKey: number;
 };
 
 const chartConfig = {
@@ -56,9 +55,9 @@ const chartConfig = {
 export function ChartRevenue() {
   const [chartData, setChartData] = React.useState<ChartPoint[]>([]);
   const [loading, setLoading] = React.useState(true);
-  const [timeRange, setTimeRange] = React.useState<'all' | 'year' | '3m'>(
-    'all'
-  );
+  const [timeRange, setTimeRange] = React.useState<
+    '14d' | '28d' | '3m' | 'all'
+  >('all');
 
   React.useEffect(() => {
     async function fetchData() {
@@ -70,14 +69,11 @@ export function ChartRevenue() {
         const sales: Sale[] = await salesRes.json();
         const products: Product[] = await productsRes.json();
 
-        // Создаём карту product_id → цена
         const productMap = new Map(
           products.map((p) => [p.id, Number(p.price)])
         );
 
-        // Группируем выручку по месяцу
-        const counts: Record<number, number> = {};
-
+        const counts: Record<string, number> = {};
         sales.forEach((sale) => {
           const date = new Date(sale.transaction_date);
           if (isNaN(date.getTime())) return;
@@ -86,40 +82,25 @@ export function ChartRevenue() {
           if (!price) return;
 
           const revenue = price * Number(sale.quantity);
-          const monthKey = date.getMonth() + 1 + date.getFullYear() * 100; // уникальный месяц-год
-
-          counts[monthKey] = (counts[monthKey] || 0) + revenue;
+          const key = date.toISOString().split('T')[0]; // YYYY-MM-DD
+          counts[key] = (counts[key] || 0) + revenue;
         });
 
-        // Преобразуем в массив для графика
-        const monthNames = [
-          'Январь',
-          'Февраль',
-          'Март',
-          'Апрель',
-          'Май',
-          'Июнь',
-          'Июль',
-          'Август',
-          'Сентябрь',
-          'Октябрь',
-          'Ноябрь',
-          'Декабрь'
-        ];
-        let dataPoints: ChartPoint[] = Object.entries(counts).map(
+        const dataPoints: ChartPoint[] = Object.entries(counts).map(
           ([key, revenue]) => {
-            const numKey = Number(key);
-            const year = Math.floor(numKey / 100);
-            const month = numKey % 100;
-            return { month: monthNames[month - 1], revenue, sortKey: numKey };
+            const date = new Date(key);
+            const label = date.toLocaleDateString('ru-RU', {
+              day: 'numeric',
+              month: 'short'
+            });
+            return { label, revenue, dateKey: date.getTime() };
           }
         );
 
-        // Сортируем по времени
-        dataPoints.sort((a, b) => a.sortKey - b.sortKey);
+        dataPoints.sort((a, b) => a.dateKey - b.dateKey);
         setChartData(dataPoints);
       } catch (err) {
-        console.error('Ошибка при загрузке графика выручки:', err);
+        console.error('Ошибка при загрузке данных графика:', err);
       } finally {
         setLoading(false);
       }
@@ -130,40 +111,83 @@ export function ChartRevenue() {
 
   if (loading) return <div>Загрузка графика...</div>;
 
-  // Фильтр по времени
   const now = new Date();
   let filteredData = chartData;
-  if (timeRange === 'year') {
-    const lastYear = now.getFullYear() - 1;
-    filteredData = chartData.filter(
-      (dp) => Math.floor(dp.sortKey / 100) >= lastYear
+  let prevPeriodData: ChartPoint[] = [];
+
+  const getFilterDays = (range: typeof timeRange) =>
+    range === '14d' ? 14 : range === '28d' ? 28 : range === '3m' ? 90 : 0;
+
+  if (timeRange !== 'all') {
+    const filterDays = getFilterDays(timeRange);
+    const fromDate = new Date();
+    fromDate.setDate(now.getDate() - filterDays + 85);
+
+    filteredData = chartData.filter((dp) => dp.dateKey >= fromDate.getTime());
+
+    // Предыдущий аналогичный период
+    const prevFrom = new Date(fromDate);
+    const prevTo = new Date(fromDate);
+    prevFrom.setDate(prevFrom.getDate() - filterDays);
+    prevPeriodData = chartData.filter(
+      (dp) =>
+        dp.dateKey >= prevFrom.getTime() && dp.dateKey < fromDate.getTime()
     );
-  } else if (timeRange === '3m') {
-    const threeMonthsAgo = new Date();
-    threeMonthsAgo.setMonth(now.getMonth() - 1); // включаем текущий месяц
-    filteredData = chartData.filter((dp) => {
-      const year = Math.floor(dp.sortKey / 100);
-      const month = dp.sortKey % 100;
-      const dpDate = new Date(year, month - 1);
-      return dpDate >= threeMonthsAgo;
+  }
+
+  // Агрегируем по месяцам, если выбран "3 месяца" или "всё время"
+  if (timeRange === '3m' || timeRange === 'all') {
+    const monthly: Record<string, number> = {};
+    filteredData.forEach((dp) => {
+      const d = new Date(dp.dateKey);
+      const monthKey = `${d.getFullYear()}-${d.getMonth() + 1}`;
+      monthly[monthKey] = (monthly[monthKey] || 0) + dp.revenue;
+    });
+
+    filteredData = Object.entries(monthly).map(([key, revenue]) => {
+      const [year, month] = key.split('-').map(Number);
+      const label = new Date(year, month - 1).toLocaleDateString('ru-RU', {
+        month: 'short'
+      });
+      return { label, revenue, dateKey: new Date(year, month - 1).getTime() };
     });
   }
+
+  // Текущая и предыдущая выручка
+  const totalRevenue = filteredData.reduce((sum, dp) => sum + dp.revenue, 0);
+  const prevRevenue = prevPeriodData.reduce((sum, dp) => sum + dp.revenue, 0);
+
+  const formattedRevenue = totalRevenue.toLocaleString('ru-RU', {
+    maximumFractionDigits: 0
+  });
+
+  // Рассчитываем изменение в процентах
+  let changePercent = 0;
+  if (prevRevenue > 0) {
+    changePercent = ((totalRevenue - prevRevenue) / prevRevenue) * 100;
+  }
+
+  const trendUp = changePercent >= 0;
+  const formattedChange = `${trendUp ? '+' : ''}${changePercent.toFixed(1)}%`;
 
   return (
     <Card>
       <CardHeader className='flex items-center justify-between'>
         <div>
           <CardTitle>Выручка</CardTitle>
-          <CardDescription>Динамика выручки по месяцам</CardDescription>
+          <CardDescription>
+            Динамика выручки за выбранный период
+          </CardDescription>
         </div>
         <Select value={timeRange} onValueChange={(v) => setTimeRange(v as any)}>
-          <SelectTrigger className='w-[160px]'>
+          <SelectTrigger className='w-[180px]'>
             <SelectValue placeholder='Период' />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value='all'>За всё время</SelectItem>
-            <SelectItem value='year'>За год</SelectItem>
+            <SelectItem value='14d'>За 14 дней</SelectItem>
+            <SelectItem value='28d'>За 28 дней</SelectItem>
             <SelectItem value='3m'>За 3 месяца</SelectItem>
+            <SelectItem value='all'>За всё время</SelectItem>
           </SelectContent>
         </Select>
       </CardHeader>
@@ -173,11 +197,10 @@ export function ChartRevenue() {
           <AreaChart data={filteredData} margin={{ left: 12, right: 12 }}>
             <CartesianGrid vertical={false} />
             <XAxis
-              dataKey='month'
+              dataKey='label'
               tickLine={false}
               axisLine={false}
               tickMargin={8}
-              interval={0}
             />
             <YAxis tickLine={false} axisLine={false} tickMargin={8} />
             <ChartTooltip content={<ChartTooltipContent indicator='line' />} />
@@ -191,6 +214,30 @@ export function ChartRevenue() {
           </AreaChart>
         </ChartContainer>
       </CardContent>
+
+      <CardFooter className='text-muted-foreground flex flex-col items-start gap-2 text-sm'>
+        <div className='flex items-center gap-2 leading-none font-medium'>
+          {trendUp ? (
+            <TrendingUp className='h-4 w-4 text-green-500' />
+          ) : (
+            <TrendingDown className='h-4 w-4 text-red-500' />
+          )}
+          <span
+            className={
+              trendUp
+                ? 'font-medium text-green-600'
+                : 'font-medium text-red-600'
+            }
+          >
+            {formattedChange}
+          </span>
+          <span>по сравнению с предыдущим периодом</span>
+        </div>
+        <div className='text-foreground flex w-full items-center justify-between text-base'>
+          <span>Суммарная выручка за период:</span>
+          <span className='font-semibold'>{formattedRevenue} ₽</span>
+        </div>
+      </CardFooter>
     </Card>
   );
 }

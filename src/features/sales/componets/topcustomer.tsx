@@ -119,7 +119,7 @@ export function TopCustomersBar() {
   if (loading) return <div>Загрузка...</div>;
 
   return (
-    <Card className='w-1/2'>
+    <Card className='w-full'>
       <CardHeader className='flex items-center justify-between'>
         <div>
           <CardTitle>Топ 10 покупателей по выручке</CardTitle>
