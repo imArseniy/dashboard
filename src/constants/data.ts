@@ -24,7 +24,7 @@ export const navItems: NavItem[] = [
   {
     title: 'Поставщики',
     url: '/dashboard/suppliers',
-    icon: 'kanban',
+    icon: 'user2',
     shortcut: ['k', 'k'],
     isActive: false,
     items: [] // No child items
@@ -32,7 +32,7 @@ export const navItems: NavItem[] = [
   {
     title: 'Товары',
     url: '/dashboard/products',
-    icon: 'kanban',
+    icon: 'product',
     shortcut: ['k', 'k'],
     isActive: false,
     items: [] // No child items
@@ -40,7 +40,7 @@ export const navItems: NavItem[] = [
   {
     title: 'Сегменты пользователей',
     url: '/dashboard/user-segments',
-    icon: 'kanban',
+    icon: 'spinner',
     shortcut: ['k', 'k'],
     isActive: false,
     items: [] // No child items
@@ -48,7 +48,7 @@ export const navItems: NavItem[] = [
   {
     title: 'Продажи',
     url: '/dashboard/sales',
-    icon: 'kanban',
+    icon: 'billing',
     shortcut: ['k', 'k'],
     isActive: false,
     items: [] // No child items
@@ -56,7 +56,7 @@ export const navItems: NavItem[] = [
   {
     title: 'Реклама',
     url: '/dashboard/ad-revenue',
-    icon: 'kanban',
+    icon: 'media',
     shortcut: ['k', 'k'],
     isActive: false,
     items: [] // No child items
@@ -64,23 +64,15 @@ export const navItems: NavItem[] = [
   {
     title: 'Возвраты',
     url: '/dashboard/returns',
-    icon: 'kanban',
+    icon: 'trash',
     shortcut: ['k', 'k'],
     isActive: false,
     items: [] // No child items
   },
   {
-    title: 'Источники рекламы',
-    url: '/dashboard/traffic',
-    icon: 'kanban',
-    shortcut: ['k', 'k'],
-    isActive: false,
-    items: [] // No child items
-  },
-  {
-    title: 'Остатки на складе',
+    title: 'Остатки на складах',
     url: '/dashboard/inventory',
-    icon: 'kanban',
+    icon: 'pizza',
     shortcut: ['k', 'k'],
     isActive: false,
     items: [] // No child items
@@ -88,32 +80,10 @@ export const navItems: NavItem[] = [
   {
     title: 'Поддержка клиентов',
     url: '/dashboard/customer-support',
-    icon: 'kanban',
+    icon: 'post',
     shortcut: ['k', 'k'],
     isActive: false,
     items: [] // No child items
-  },
-
-  {
-    title: 'Аккаунт',
-    url: '#', // Placeholder as there is no direct link for the parent
-    icon: 'billing',
-    isActive: true,
-
-    items: [
-      {
-        title: 'Профиль',
-        url: '/dashboard/profile',
-        icon: 'userPen',
-        shortcut: ['m', 'm']
-      },
-      {
-        title: 'Войти',
-        shortcut: ['l', 'l'],
-        url: '/',
-        icon: 'login'
-      }
-    ]
   }
 ];
 
