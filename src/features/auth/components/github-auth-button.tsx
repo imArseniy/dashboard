@@ -13,10 +13,10 @@ export default function GithubSignInButton() {
       className='w-full'
       variant='outline'
       type='button'
-      onClick={() => console.log('continue with github clicked')}
+      onClick={() => console.log('продолжим, нажав на github')}
     >
       <Icons.github className='mr-2 h-4 w-4' />
-      Continue with Github
+      Продоложить с Github
     </Button>
   );
 }

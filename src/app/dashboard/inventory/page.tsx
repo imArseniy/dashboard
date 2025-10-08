@@ -3,7 +3,7 @@ import TableDataInventory from '@/features/inventory/componets/TableDataInventor
 import { WarehouseInventory } from '@/features/inventory/componets/warehouseinventory';
 
 export const metadata = {
-  title: 'Dashboard : Kanban view'
+  title: 'Дашборд : Складские остатки'
 };
 
 export default function page() {

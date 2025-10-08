@@ -21,7 +21,7 @@ export default function SignUpViewPage({ stars }: { stars: number }) {
           'absolute top-4 right-4 hidden md:top-8 md:right-8'
         )}
       >
-        Sign Up
+        Зарегистрироваться
       </Link>
       <div className='bg-muted relative hidden h-full flex-col p-10 text-white lg:flex dark:border-r'>
         <div className='absolute inset-0 bg-zinc-900' />
@@ -43,9 +43,7 @@ export default function SignUpViewPage({ stars }: { stars: number }) {
         <div className='relative z-20 mt-auto'>
           <blockquote className='space-y-2'>
             <p className='text-lg'>
-              &ldquo;This starter template has saved me countless hours of work
-              and helped me deliver projects to my clients faster than ever
-              before.&rdquo;
+              &ldquo;Интерактивный дашборд маркеплейса Малинки.&rdquo;
             </p>
             <footer className='text-sm'>Малинки</footer>
           </blockquote>
@@ -59,19 +57,19 @@ export default function SignUpViewPage({ stars }: { stars: number }) {
             }}
           />
           <p className='text-muted-foreground px-8 text-center text-sm'>
-            By clicking continue, you agree to our{' '}
+            Нажав продолжить, вы соглашаетесь с нашими условиями.{' '}
             <Link
               href='/terms'
               className='hover:text-primary underline underline-offset-4'
             >
-              Terms of Service
+              Условия обслуживания
             </Link>{' '}
-            and{' '}
+            и{' '}
             <Link
               href='/privacy'
               className='hover:text-primary underline underline-offset-4'
             >
-              Privacy Policy
+              Политика конфиденциальности
             </Link>
             .
           </p>

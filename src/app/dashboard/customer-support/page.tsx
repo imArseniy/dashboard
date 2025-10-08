@@ -6,7 +6,7 @@ import { AvgResolutionAreaChart } from '@/features/customer-support/componets/Re
 import TableDataCustomerSupport from '@/features/customer-support/componets/TableDataCustomerSupport';
 
 export const metadata = {
-  title: 'Dashboard : Kanban view'
+  title: 'Дашборд : Аналитика обращений'
 };
 
 export default function page() {

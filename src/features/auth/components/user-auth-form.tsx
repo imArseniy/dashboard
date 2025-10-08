@@ -19,7 +19,7 @@ import GithubSignInButton from './github-auth-button';
 import { FormInput } from '@/components/forms/form-input';
 
 const formSchema = z.object({
-  email: z.string().email({ message: 'Enter a valid email address' })
+  email: z.string().email({ message: 'Введите действительный Email' })
 });
 
 type UserFormValue = z.infer<typeof formSchema>;
@@ -38,30 +38,27 @@ export default function UserAuthForm() {
 
   const onSubmit = async (data: UserFormValue) => {
     startTransition(() => {
-      console.log('continue with email clicked');
-      toast.success('Signed In Successfully!');
+      console.log('продолжайте с нажатым адресом электронной почты');
+      toast.success('Успешно выполнен вход в систему!');
     });
   };
 
   return (
     <>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="w-full space-y-2"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className='w-full space-y-2'>
         <FormInput
           control={form.control}
-          name="email"
-          label="Email"
-          placeholder="Enter your email..."
+          name='email'
+          label='Email'
+          placeholder='Введите Email...'
           disabled={loading}
         />
         <Button
-          type="submit"
+          type='submit'
           disabled={loading}
-          className="mt-2 ml-auto w-full"
+          className='mt-2 ml-auto w-full'
         >
-          Continue With Email
+          Продоложить с Email
         </Button>
       </form>
       <div className='relative'>
@@ -70,7 +67,7 @@ export default function UserAuthForm() {
         </div>
         <div className='relative flex justify-center text-xs uppercase'>
           <span className='bg-background text-muted-foreground px-2'>
-            Or continue with
+            Или продолжить с
           </span>
         </div>
       </div>

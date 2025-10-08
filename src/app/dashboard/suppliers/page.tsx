@@ -1,7 +1,7 @@
 import TableDataSuppliers from '@/features/suppliers/componets/TableDataSuppliers';
 
 export const metadata = {
-  title: 'Dashboard : Kanban view'
+  title: 'Дашборд : Справочник поставщиков'
 };
 
 export default function page() {

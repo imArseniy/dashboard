@@ -8,7 +8,7 @@ import { TrafficPieChart } from '@/features/ad-revenue/componets/TrafficPieChart
 import { ChartRevenue } from '@/features/sales/componets/mainchart';
 
 export const metadata = {
-  title: 'Dashboard : Kanban view'
+  title: 'Дашборд : Аналитика рекламы'
 };
 
 export default function page() {

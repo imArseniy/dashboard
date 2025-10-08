@@ -4,7 +4,7 @@ import { ChartRadarRegions } from '@/features/user-segments/componets/regions';
 import { ChartPieUserSegments } from '@/features/user-segments/componets/segments';
 
 export const metadata = {
-  title: 'Dashboard : Kanban view'
+  title: 'Дашборд : Сегменты пользователей'
 };
 
 export default function page() {

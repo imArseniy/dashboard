@@ -6,7 +6,7 @@ import TableDataReturns from '@/features/returns/componets/TableDataReturns';
 import { TopReturnedProductsChart } from '@/features/returns/componets/TopReturnedProductsChart';
 
 export const metadata = {
-  title: 'Dashboard : Kanban view'
+  title: 'Дашборд : Аналитика возвратов'
 };
 
 export default function page() {

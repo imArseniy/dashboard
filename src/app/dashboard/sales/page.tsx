@@ -8,7 +8,7 @@ import { TopProductsChart } from '@/features/sales/componets/TopProductsQuantity
 import { TopProductsRevenueChart } from '@/features/sales/componets/TopProductsRevenue';
 
 export const metadata = {
-  title: 'Dashboard : Kanban view'
+  title: 'Дашборд : Аналитика продаж'
 };
 
 export default function page() {
