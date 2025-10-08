@@ -12,7 +12,7 @@
 ## Быстрый старт
 
 
-- `pnpm install` ( we have legacy-peer-deps=true added in the .npmrc)
+- `pnpm install`
 - Создайте `.env.local` скопировав пример окружения:
   `cp env.example.txt .env.local`
 - `pnpm run dev`
