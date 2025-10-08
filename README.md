@@ -16,5 +16,5 @@
 - Создайте `.env.local` скопировав пример окружения:
   `cp env.example.txt .env.local`
 - `pnpm run dev`
-
-После этого вы сможете открыть приложение по адресу: http://localhost:3000
+- После этого вы сможете открыть приложение по адресу: http://localhost:3000
+- Для авторизации используйте почту `arseniysmirnov774@yandex.ru` и пароль `QwertyQwertyQwerty888`
